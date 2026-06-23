@@ -220,8 +220,7 @@ SMTP_TARGETS = [
 
 IMAP_TARGETS = [
     ("imap.gmail.com",        993, "Gmail IMAP SSL"),
-    ("imap.mail.yahoo.com",   993, "Yahoo IMAP SSL"),
-    ("outlook.office365.com", 993, "O365 IMAP SSL"),
+    ("imap.mail.yahoo.com",   993, "Yahoo IMAP SSL")
 ]
 
 def test_email(timeout=6):
