@@ -86,15 +86,44 @@ def resolve_ip(hostname):
 def sock_conn_info(sock):
     """
     Given a connected socket (plain or SSL), return (dst_ip, src_port, dst_port).
+    Handles: raw socket, ssl.SSLSocket, and imaplib/smtplib wrapped objects.
     Falls back to '?' values on any error.
     """
     try:
-        raw = sock.socket if isinstance(sock, ssl.SSLSocket) else sock
+        # imaplib.IMAP4_SSL exposes the real SSL socket via .socket() method
+        if hasattr(sock, "socket") and callable(sock.socket):
+            raw = sock.socket()
+        # smtplib stores plain socket as .sock; SSL wrapped via SMTP_SSL is SSLSocket
+        elif isinstance(sock, ssl.SSLSocket):
+            raw = sock  # SSLSocket itself supports getsockname/getpeername
+        else:
+            raw = sock
         local_port  = raw.getsockname()[1]
         remote_addr = raw.getpeername()
         return remote_addr[0], local_port, remote_addr[1]
     except Exception:
         return "?", "?", "?"
+
+def tcp_probe(host, port, timeout=5):
+    """
+    Open a plain TCP connection to host:port and immediately capture socket info.
+    Returns (dst_ip, src_port, dst_port, err_msg).
+    err_msg is None on success, or a string describing the failure (blocked/refused/timeout).
+    This is the ground-truth reachability check — if this fails, the firewall is blocking.
+    """
+    try:
+        dst_ip = resolve_ip(host)
+        raw = socket.create_connection((host, port), timeout=timeout)
+        src_port = raw.getsockname()[1]
+        dst_port = raw.getpeername()[1]
+        raw.close()
+        return dst_ip, src_port, dst_port, None
+    except socket.timeout:
+        return resolve_ip(host), "?", port, "TCP timeout (likely blocked — no RST received)"
+    except ConnectionRefusedError:
+        return resolve_ip(host), "?", port, "TCP connection refused"
+    except OSError as e:
+        return resolve_ip(host), "?", port, f"TCP error: {e}"
 
 def http_conn_info(url, timeout=5):
     """
@@ -226,19 +255,32 @@ def test_email(timeout=6):
 
     section("Email – IMAP")
     for host, port, label in IMAP_TARGETS:
-        dst_ip = resolve_ip(host)
-        conn   = None
+        # ── Step 1: TCP pre-flight ────────────────────────────────────────────
+        # Connects bare TCP first so we can (a) capture real socket info and
+        # (b) detect firewall blocks before attempting TLS/IMAP.
+        dst_ip, src_port, dst_port, tcp_err = tcp_probe(host, port, timeout=timeout)
+        conn = (dst_ip, src_port, dst_port)
+
+        if tcp_err:
+            # TCP itself was blocked or refused — no point trying IMAP
+            log("IMAP", label, "FAIL", f"BLOCKED – {tcp_err}", conn)
+            time.sleep(0.4)
+            continue
+
+        # ── Step 2: Full IMAP over TLS ────────────────────────────────────────
         try:
             ctx  = make_ssl_ctx()
             imap = imaplib.IMAP4_SSL(host, port, ssl_context=ctx)
-            # IMAP4_SSL stores the raw SSL socket as imap.sock
-            conn = sock_conn_info(imap.sock)
+            # imap.socket() returns the underlying ssl.SSLSocket
+            conn = sock_conn_info(imap)          # pass the IMAP4_SSL object
             cap  = imap.capability()[1][0].decode(errors="replace")
             imap.logout()
             log("IMAP", label, "OK", cap[:50], conn)
+        except ssl.SSLError as e:
+            log("IMAP", label, "FAIL", f"TLS error (firewall intercept?): {e}", conn)
+        except imaplib.IMAP4.error as e:
+            log("IMAP", label, "FAIL", f"IMAP error: {e}", conn)
         except Exception as e:
-            if conn is None:
-                conn = (dst_ip, "?", port)
             log("IMAP", label, "FAIL", str(e), conn)
         time.sleep(0.4)
 
