@@ -1,0 +1,10 @@
+Steps the Install:
+
+sudo apt update && sudo apt install -y python3 python3-pip git curl
+git clone https://github.com/ameyaarista/velo_etm_testing.git
+cd velo_etm_testing
+pip3 install dnspython requests pandas urllib3 --break-system-packages
+python3 -m http.server 8080
+sudo ufw allow 8080
+http://localhost:8080/etmdemo.html
+http://<your-vm-ip>:8080/etmdemo.html
