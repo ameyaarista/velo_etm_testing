@@ -1,6 +1,28 @@
-Steps the Install:
+**Step 1 — Install dependencies**
+```bash
+sudo apt update && sudo apt install -y python3 python3-pip git
+```
 
-cat > ~/velo_etm_testing/server.py << 'EOF'
+---
+
+**Step 2 — Clone the repo**
+```bash
+git clone https://github.com/ameyaarista/velo_etm_testing.git
+cd velo_etm_testing
+```
+
+---
+
+**Step 3 — Install Python packages**
+```bash
+pip3 install flask flask-cors dnspython requests pandas urllib3 --break-system-packages
+```
+
+---
+
+**Step 4 — Create server.py**
+```bash
+cat > server.py << 'EOF'
 from flask import Flask, Response, send_from_directory
 from flask_cors import CORS
 import subprocess, os, re
@@ -42,7 +64,47 @@ def serve(filename='etmdemo.html'):
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
 EOF
+```
 
+---
 
-pip3 install flask flask-cors --break-system-packages
-cd ~/velo_etm_testing && python3 server.py
+**Step 5 — Verify folder structure looks like this**
+```bash
+ls -1
+```
+You should see:
+```
+app_filtering.py
+domain_rule_test.py
+etmdemo.html
+geo_ip_testing.py
+idps_testing.py
+server.py
+```
+
+---
+
+**Step 6 — Open port 8080 (if accessing remotely)**
+```bash
+sudo ufw allow 8080
+```
+
+---
+
+**Step 7 — Run**
+```bash
+python3 server.py
+```
+
+---
+
+**Step 8 — Open in browser**
+
+Local:
+```
+http://localhost:8080
+```
+Remote:
+```
+http://<your-vm-ip>:8080
+```
