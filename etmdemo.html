@@ -440,13 +440,29 @@ function appendLine(text, cls) {
 
 function classifyLine(line) {
   const l = line.toLowerCase();
-  if (line.includes('\u2714') || l.includes('\u2705') || l.includes('available') || l.includes(' ok ') || l.includes('[+]')) return 'ok';
-  if (line.includes('\u2718') || l.includes('block') || l.includes('\u274c') || l.includes('refused') ||
-      l.includes('could not resolve') || l.includes('timeout') || l.includes('error') || l.includes('[-]')) return 'fail';
-  if (l.includes('\u26a0') || l.includes('warn') || l.includes('issue') || l.includes('redirect')) return 'warn';
+  const trimmed = line.trim();
+
+  // Must be a timestamped result line e.g. [16:00:53] ✔ or ✘
+  const isResultLine = /^\[[\d:]+\]/.test(trimmed);
+
+  // OK: checkmark on a result line, or pandas-style availability
+  if (line.includes('\u2714') && isResultLine) return 'ok';
+  if (l.includes('\u2705') || (l.includes('available') && l.includes('200'))) return 'ok';
+
+  // FAIL: only on actual result lines to avoid header false positives
+  if (isResultLine && (
+      line.includes('\u2718') ||
+      l.includes('connectionrefused') ||
+      l.includes('could not resolve') ||
+      l.includes('timed out') ||
+      l.includes('blocked'))) return 'fail';
+
+  // Non-result-line specific matches
+  if (line.includes('\u274c') || l.includes('[-]')) return 'fail';
+  if (l.includes('\u26a0') || l.includes('warn') || l.includes('issue')) return 'warn';
   if (l.includes('summary') || l.includes('all commands executed') || (l.includes('done') && l.length < 20)) return 'done';
   if (l.includes('egress') || l.includes('ip address') || l.includes('organisation') || l.includes('pop estimate')) return 'info';
-  if (line.trim().startsWith('$') || /^\[\d/.test(line.trim())) return 'sys';
+  if (trimmed.startsWith('$') || /^\[\d/.test(trimmed)) return 'sys';
   return '';
 }
 
