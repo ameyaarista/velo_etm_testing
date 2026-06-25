@@ -2,13 +2,13 @@ import concurrent.futures
 import pandas as pd
 import requests
 
-# A curated list of 20 major national news websites from developed countries
+# A curated list of 13 major national news websites from developed countries
 NEWS_SITES = {
     # United States
     "The New York Times": "https://www.nytimes.com",
-    "The Washington Post": "https://www.washingtonpost.com",
+    #"The Washington Post": "https://www.washingtonpost.com",
     "CNN": "https://www.cnn.com",
-    "WSJ": "https://www.wsj.com",
+    #"WSJ": "https://www.wsj.com",
     # United Kingdom
     "BBC News": "https://www.bbc.co.uk",
     "The Guardian": "https://www.theguardian.com",
@@ -24,12 +24,12 @@ NEWS_SITES = {
     "The Age": "https://www.theage.com.au",
     # Germany / Europe
     "Deutsche Welle": "https://www.dw.com",
-    "Der Spiegel": "https://www.spiegel.de",
-    "France 24": "https://www.france24.com",
+    #"Der Spiegel": "https://www.spiegel.de",
+    #"France 24": "https://www.france24.com",
     # Japan / International
-    "The Japan Times": "https://www.japantimes.co.jp",
-    "Bloomberg": "https://www.bloomberg.com",
-    "Financial Times": "https://www.ft.com",
+    #"The Japan Times": "https://www.japantimes.co.jp",
+    #"Bloomberg": "https://www.bloomberg.com",
+    #"Financial Times": "https://www.ft.com",
 }
 
 
