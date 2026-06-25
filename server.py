@@ -1,3 +1,4 @@
+cat > ~/velo_etm_testing/server.py << 'EOF'
 from flask import Flask, Response, send_from_directory
 from flask_cors import CORS
 import subprocess, os, re
@@ -23,7 +24,7 @@ def run_script(idx):
         return 'Unknown script', 404
     def generate():
         proc = subprocess.Popen(
-            ['python3', '-u', os.path.join(BASE, script)],
+            ['python3', '-u', os.path.join(BASE, script), '--no-verify'],
             stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True
         )
         for line in proc.stdout:
@@ -38,3 +39,4 @@ def serve(filename='etmdemo.html'):
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
+EOF
