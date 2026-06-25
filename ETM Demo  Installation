@@ -1,10 +1,48 @@
 Steps the Install:
 
-sudo apt update && sudo apt install -y python3 python3-pip git curl
-git clone https://github.com/ameyaarista/velo_etm_testing.git
-cd velo_etm_testing
-pip3 install dnspython requests pandas urllib3 --break-system-packages
-python3 -m http.server 8080
-sudo ufw allow 8080
-http://localhost:8080/etmdemo.html
-http://<your-vm-ip>:8080/etmdemo.html
+cat > ~/velo_etm_testing/server.py << 'EOF'
+from flask import Flask, Response, send_from_directory
+from flask_cors import CORS
+import subprocess, os, re
+
+app = Flask(__name__)
+CORS(app)
+
+BASE = os.path.dirname(os.path.abspath(__file__))
+SCRIPTS = {
+    0: 'app_filtering.py',
+    1: 'domain_rule_test.py',
+    2: 'geo_ip_testing.py',
+    3: 'idps_testing.py',
+}
+
+def strip_ansi(text):
+    return re.sub(r'\x1b\[[0-9;]*m', '', text)
+
+@app.route('/run/<int:idx>')
+def run_script(idx):
+    script = SCRIPTS.get(idx)
+    if not script:
+        return 'Unknown script', 404
+    def generate():
+        proc = subprocess.Popen(
+            ['python3', '-u', os.path.join(BASE, script)],
+            stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True
+        )
+        for line in proc.stdout:
+            yield f"data: {strip_ansi(line.rstrip())}\n\n"
+        yield "data: __DONE__\n\n"
+    return Response(generate(), mimetype='text/event-stream')
+
+@app.route('/')
+@app.route('/<path:filename>')
+def serve(filename='etmdemo.html'):
+    return send_from_directory(BASE, filename)
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8080)
+EOF
+
+
+pip3 install flask flask-cors --break-system-packages
+cd ~/velo_etm_testing && python3 server.py
