@@ -116,7 +116,7 @@ BOLD   = "\033[1m"
 RESET  = "\033[0m"
 DIM    = "\033[2m"
 
-TIMEOUT = 10  # seconds per request
+TIMEOUT = 2  # seconds per request
 MAX_WORKERS = 20  # parallel threads
 
 def check_site(entry):
