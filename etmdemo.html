@@ -306,6 +306,24 @@ header {
         <button class="run-btn" onclick="runTest(3, event)">&#9654; Run Test</button>
       </div>
     </div>
+
+    <div class="test-card" id="card-4" onclick="selectCard(4)">
+      <div class="card-header">
+        <div class="card-icon">🌍</div>
+        <div class="card-meta">
+          <div class="card-name">Web Filtering</div>
+          <div class="card-file">web_filtering.py</div>
+        </div>
+        <span class="card-badge badge-idle" id="badge-4">IDLE</span>
+      </div>
+      <div class="card-body">
+        <div class="card-desc">Tests access to 13 global gambling &amp; wagering websites. Reports HTTP status, dest IP, ports, and ALLOW/BLOCK verdict per site.</div>
+        <div class="card-tags">
+          <span class="tag">HTTP</span><span class="tag">Gambling</span><span class="tag">ALLOW/BLOCK</span><span class="tag">13 Sites</span>
+        </div>
+        <button class="run-btn" onclick="runTest(4, event)">&#9654; Run Test</button>
+      </div>
+    </div>
   </aside>
 
   <!-- Right panel -->
@@ -348,10 +366,11 @@ header {
 
 <script>
 const tests = [
-  { name: 'App Filtering',    file: 'app_filtering.py',   img: 'App_Filtering.png' },
+  { name: 'App Filtering',    file: 'app_filtering.py',    img: 'App_Filtering.png' },
   { name: 'Domain Rule Test', file: 'domain_rule_test.py', img: 'Domain_Filtering.png' },
   { name: 'GeoIP Testing',    file: 'geo_ip_testing.py',   img: 'Geo-IP_Filtering.png' },
   { name: 'IDPS Testing',     file: 'idps_testing.py',     img: 'IDPS_Prevention.png' },
+  { name: 'Web Filtering',    file: 'web_filtering.py',    img: 'Web_Filtering.png' },
 ];
 
 let statOk = 0, statFail = 0, statWarn = 0;
