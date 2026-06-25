@@ -11,6 +11,7 @@ SCRIPTS = {
     1: 'domain_rule_test.py',
     2: 'geo_ip_testing.py',
     3: 'idps_testing.py',
+    4: 'web_filtering.py',
 }
 
 def strip_ansi(text):
