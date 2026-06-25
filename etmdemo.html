@@ -442,27 +442,38 @@ function classifyLine(line) {
   const l = line.toLowerCase();
   const trimmed = line.trim();
 
-  // Must be a timestamped result line e.g. [16:00:53] ✔ or ✘
-  const isResultLine = /^\[[\d:]+\]/.test(trimmed);
+  // Timestamped lines: [16:00:53] ✔/✘  (app_filtering style)
+  const isTimestamped = /^\[[\d:]+\]/.test(trimmed);
+  // Table row lines: leading number  (geo_ip style)
+  const isTableRow = /^\s*\d+\s+[A-Za-z]/.test(line) && !isTimestamped;
 
-  // OK: checkmark on a result line, or pandas-style availability
-  if (line.includes('\u2714') && isResultLine) return 'ok';
-  if (l.includes('\u2705') || (l.includes('available') && l.includes('200'))) return 'ok';
+  // ── OK ──
+  if (line.includes('\u2714')) return 'ok';          // ✔ anywhere
+  if (l.includes('\u2705'))    return 'ok';          // ✅
+  if (isTableRow && /\bok\b/i.test(line) && !/block/i.test(line)) return 'ok';
+  if (l.includes('available') && (l.includes('200') || l.includes('ok'))) return 'ok';
 
-  // FAIL: only on actual result lines to avoid header false positives
-  if (isResultLine && (
-      line.includes('\u2718') ||
-      l.includes('connectionrefused') ||
-      l.includes('could not resolve') ||
-      l.includes('timed out') ||
-      l.includes('blocked'))) return 'fail';
+  // ── FAIL ──
+  if (line.includes('\u2718')) return 'fail';        // ✘ anywhere
+  if (line.includes('\u274c')) return 'fail';        // ❌
+  if (isTableRow && /block/i.test(line)) return 'fail';
+  if (isTimestamped && (l.includes('connectionrefused') || l.includes('could not resolve') || l.includes('timed out'))) return 'fail';
+  if (!isTimestamped && l.includes('could not resolve')) return 'fail';
+  if (l.includes('[-]')) return 'fail';
 
-  // Non-result-line specific matches
-  if (line.includes('\u274c') || l.includes('[-]')) return 'fail';
-  if (l.includes('\u26a0') || l.includes('warn') || l.includes('issue')) return 'warn';
-  if (l.includes('summary') || l.includes('all commands executed') || (l.includes('done') && l.length < 20)) return 'done';
-  if (l.includes('egress') || l.includes('ip address') || l.includes('organisation') || l.includes('pop estimate')) return 'info';
-  if (trimmed.startsWith('$') || /^\[\d/.test(trimmed)) return 'sys';
+  // ── WARN — non-200 HTTP codes in table rows ──
+  if (isTableRow && /\s(301|302|403|404|405|500|503)\s/.test(line)) return 'warn';
+
+  // ── INFO — egress / POP ──
+  if (l.includes('egress') || l.includes('your ip') || l.includes('organisation') || l.includes('pop estimate') || l.includes('asn:')) return 'info';
+
+  // ── DONE ──
+  if (l.includes('all commands executed') || l.includes('test complete') || (l.includes('done') && trimmed.length < 20)) return 'done';
+
+  // ── SYS ──
+  if (trimmed.startsWith('$')) return 'sys';
+  if (/^[─═\-=]{4,}/.test(trimmed)) return 'dim';
+
   return '';
 }
 
