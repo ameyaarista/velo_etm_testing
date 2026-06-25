@@ -7,39 +7,26 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
-/*
-  Exact VeloCloud Orchestrator palette:
-  Page bg:      linear-gradient periwinkle #c8d8ef → #e8eef8 → white
-  Card bg:      #ffffff with subtle shadow
-  Navy text:    #1a2b4a  (ARISTA wordmark, headings)
-  Teal "velo":  #1a7abf  (VeloCloud brand teal-blue)
-  Teal dark:    #155fa0  (hover)
-  Border:       #d4dff0
-  Muted:        #6b7fa3
-  Font:         Open Sans
-*/
-
 :root {
-  --bg-start:   #c5d5ea;
-  --bg-end:     #edf2fb;
-  --navy:       #1a2b4a;
-  --teal:       #1a7abf;
-  --teal-dark:  #155fa0;
-  --teal-lite:  #e8f2fb;
-  --white:      #ffffff;
-  --border:     #d0daea;
-  --border2:    #e4ecf6;
-  --muted:      #6b7fa3;
-  --text:       #1a2b4a;
-  --green:      #1a8a4a;
-  --green-bg:   #e8f5ee;
-  --red:        #c0392b;
-  --red-bg:     #fdf0ee;
-  --amber:      #b45309;
-  --amber-bg:   #fef3e2;
-  --shadow:     0 4px 32px rgba(26,43,74,0.10), 0 1px 4px rgba(26,43,74,0.06);
-  --font:       'Open Sans', sans-serif;
-  --mono:       'JetBrains Mono', monospace;
+  --bg-start:  #c5d5ea;
+  --bg-end:    #edf2fb;
+  --navy:      #1a2b4a;
+  --teal:      #1a7abf;
+  --teal-dark: #155fa0;
+  --teal-lite: #e8f2fb;
+  --white:     #ffffff;
+  --border:    #d0daea;
+  --border2:   #e4ecf6;
+  --muted:     #6b7fa3;
+  --text:      #1a2b4a;
+  --green:     #1a8a4a;
+  --green-bg:  #e8f5ee;
+  --red:       #c0392b;
+  --red-bg:    #fdf0ee;
+  --amber:     #b45309;
+  --shadow:    0 4px 32px rgba(26,43,74,0.10), 0 1px 4px rgba(26,43,74,0.06);
+  --font:      'Open Sans', sans-serif;
+  --mono:      'JetBrains Mono', monospace;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -53,70 +40,32 @@ body {
   flex-direction: column;
 }
 
-/* ── Header — matches Arista/VeloCloud top bar ── */
+/* ── Header ── */
 header {
   display: flex;
   align-items: center;
   padding: 0 28px;
   height: 52px;
-  background: rgba(255,255,255,0.82);
+  background: rgba(255,255,255,0.85);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--border2);
   flex-shrink: 0;
 }
-
-/* ARISTA wordmark style */
-.arista-wordmark {
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--navy);
-  letter-spacing: 0.12em;
-  font-family: var(--font);
-  text-transform: uppercase;
-}
-
-.hdr-divider {
-  width: 1px;
-  height: 20px;
-  background: var(--border);
-  margin: 0 16px;
-}
-
-/* velocloud™ wordmark */
-.vc-wordmark {
-  display: flex;
-  align-items: baseline;
-  gap: 0;
-}
-.vc-velo  { font-size: 17px; font-weight: 700; color: var(--teal); letter-spacing: -0.2px; }
-.vc-cloud { font-size: 17px; font-weight: 700; color: var(--navy); letter-spacing: -0.2px; }
-.vc-tm    { font-size: 8px;  color: var(--muted); vertical-align: super; margin-left: 1px; }
-
-.hdr-subtitle {
-  font-size: 13px;
-  font-weight: 400;
-  color: var(--muted);
-  margin-left: 10px;
-}
-
+.arista-wordmark { font-size: 17px; font-weight: 700; color: var(--navy); letter-spacing: 0.12em; text-transform: uppercase; }
+.hdr-divider     { width: 1px; height: 20px; background: var(--border); margin: 0 16px; }
+.vc-wordmark     { display: flex; align-items: baseline; }
+.vc-velo         { font-size: 17px; font-weight: 700; color: var(--teal); letter-spacing: -0.2px; }
+.vc-cloud        { font-size: 17px; font-weight: 700; color: var(--navy); letter-spacing: -0.2px; }
+.vc-tm           { font-size: 8px; color: var(--muted); vertical-align: super; margin-left: 1px; }
+.hdr-subtitle    { font-size: 13px; font-weight: 400; color: var(--muted); margin-left: 10px; }
 .status-pill {
-  margin-left: auto;
-  font-size: 11px;
-  font-family: var(--mono);
-  padding: 4px 12px;
-  border-radius: 20px;
-  border: 1px solid var(--border);
-  color: var(--muted);
-  letter-spacing: 0.06em;
-  background: var(--white);
+  margin-left: auto; font-size: 11px; font-family: var(--mono);
+  padding: 4px 12px; border-radius: 20px; border: 1px solid var(--border);
+  color: var(--muted); letter-spacing: 0.06em; background: var(--white);
 }
-.status-pill.running {
-  border-color: var(--teal);
-  color: var(--teal);
-  background: var(--teal-lite);
-}
+.status-pill.running { border-color: var(--teal); color: var(--teal); background: var(--teal-lite); }
 
-/* ── Main layout ── */
+/* ── Layout ── */
 .main {
   display: grid;
   grid-template-columns: 310px 1fr;
@@ -135,18 +84,14 @@ header {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  padding: 18px 0 0;
+  padding: 18px 0;
 }
-
 .sidebar-label {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.13em;
-  color: var(--muted);
-  text-transform: uppercase;
-  padding: 0 16px 12px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.13em;
+  color: var(--muted); text-transform: uppercase; padding: 0 16px 12px;
 }
 
+/* ── Cards ── */
 .test-card {
   margin: 0 10px 6px;
   border: 1px solid var(--border2);
@@ -156,139 +101,47 @@ header {
   overflow: hidden;
   background: #fafcff;
 }
-.test-card:hover {
-  border-color: var(--teal);
-  background: var(--teal-lite);
-  box-shadow: 0 2px 8px rgba(26,122,191,0.08);
-}
-.test-card.active {
-  border-color: var(--teal);
-  background: var(--teal-lite);
-  box-shadow: 0 2px 12px rgba(26,122,191,0.12);
-}
+.test-card:hover  { border-color: var(--teal); background: var(--teal-lite); }
+.test-card.active { border-color: var(--teal); background: var(--teal-lite); box-shadow: 0 2px 12px rgba(26,122,191,0.12); }
 
-.card-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 14px;
-}
+.card-header { display: flex; align-items: center; gap: 10px; padding: 12px 14px; }
+.card-icon   { width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; background: var(--teal-lite); }
+.card-meta   { flex: 1; min-width: 0; }
+.card-name   { font-size: 13px; font-weight: 600; color: var(--navy); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-file   { font-size: 10px; font-family: var(--mono); color: var(--muted); margin-top: 2px; }
 
-.card-icon {
-  width: 30px; height: 30px;
-  border-radius: 6px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 15px;
-  flex-shrink: 0;
-  background: var(--teal-lite);
-}
-
-.card-meta { flex: 1; min-width: 0; }
-.card-name {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--navy);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.card-file {
-  font-size: 10px;
-  font-family: var(--mono);
-  color: var(--muted);
-  margin-top: 2px;
-}
-
-.card-badge {
-  font-size: 10px;
-  font-family: var(--mono);
-  padding: 2px 7px;
-  border-radius: 4px;
-  font-weight: 600;
-  flex-shrink: 0;
-  letter-spacing: 0.04em;
-}
-.badge-idle    { background: #f0f3f8;       color: var(--muted); }
+.card-badge { font-size: 10px; font-family: var(--mono); padding: 2px 7px; border-radius: 4px; font-weight: 600; flex-shrink: 0; letter-spacing: 0.04em; }
+.badge-idle    { background: #f0f3f8;        color: var(--muted); }
 .badge-running { background: var(--teal-lite); color: var(--teal); }
 .badge-done    { background: var(--green-bg);  color: var(--green); }
 .badge-error   { background: var(--red-bg);    color: var(--red); }
 
+/* Expanded content — only shown on active card */
+.card-body { display: none; border-top: 1px solid var(--border2); }
+.test-card.active .card-body { display: block; }
+
 .card-desc {
-  font-size: 11.5px;
-  color: var(--muted);
-  padding: 10px 14px 12px;
-  line-height: 1.55;
-  border-top: 1px solid var(--border2);
-  display: none;
+  font-size: 11px; color: var(--muted);
+  padding: 10px 14px 8px; line-height: 1.55;
 }
-.test-card.active .card-desc { display: block; }
 
-.card-tags {
-  display: none;
-  gap: 4px;
-  flex-wrap: wrap;
-  padding: 0 14px 10px;
-}
-.test-card.active .card-tags { display: flex; }
+.card-tags { display: flex; gap: 4px; flex-wrap: wrap; padding: 0 14px 10px; }
 .tag {
-  font-size: 10px;
-  font-family: var(--mono);
-  padding: 2px 7px;
-  border-radius: 3px;
-  background: rgba(26,122,191,0.08);
-  color: var(--teal);
-  border: 1px solid rgba(26,122,191,0.2);
-  font-weight: 500;
+  font-size: 10px; font-family: var(--mono); padding: 2px 7px; border-radius: 3px;
+  background: rgba(26,122,191,0.08); color: var(--teal);
+  border: 1px solid rgba(26,122,191,0.2); font-weight: 500;
 }
 
-/* Run Test button — matches VeloCloud LOGIN button */
 .run-btn {
-  margin: 0 14px 12px;
-  width: calc(100% - 28px);
-  padding: 9px;
-  font-size: 12px;
-  font-weight: 700;
-  font-family: var(--font);
-  border-radius: 6px;
-  border: none;
-  background: var(--teal);
-  color: #fff;
-  cursor: pointer;
-  transition: background 0.15s;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  display: none;
+  margin: 0 14px 12px; width: calc(100% - 28px); padding: 9px;
+  font-size: 12px; font-weight: 700; font-family: var(--font); border-radius: 6px;
+  border: none; background: var(--teal); color: #fff; cursor: pointer;
+  transition: background 0.15s; letter-spacing: 0.07em; text-transform: uppercase;
 }
-.test-card.active .run-btn { display: block; }
 .run-btn:hover    { background: var(--teal-dark); }
 .run-btn:disabled { opacity: 0.45; cursor: not-allowed; }
 
-.run-all-wrap {
-  padding: 14px 10px;
-  margin-top: auto;
-  border-top: 1px solid var(--border2);
-}
-
-/* Run All — matches "SIGN IN WITH YOUR IDENTITY PROVIDER" outlined button */
-.run-all-btn {
-  width: 100%;
-  padding: 10px;
-  font-size: 11.5px;
-  font-weight: 700;
-  font-family: var(--font);
-  border-radius: 6px;
-  border: 1.5px solid var(--teal);
-  background: transparent;
-  color: var(--teal);
-  cursor: pointer;
-  transition: background 0.15s, color 0.15s;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-}
-.run-all-btn:hover    { background: var(--teal); color: #fff; }
-.run-all-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-
-/* ── Terminal pane ── */
+/* ── Right panel ── */
 .terminal-pane {
   background: var(--white);
   border-radius: 14px;
@@ -300,57 +153,42 @@ header {
 }
 
 .term-topbar {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 18px;
-  border-bottom: 1px solid var(--border2);
-  background: #f5f8fd;
-  flex-shrink: 0;
+  display: flex; align-items: center; gap: 10px; padding: 10px 18px;
+  border-bottom: 1px solid var(--border2); background: #f5f8fd; flex-shrink: 0;
 }
-
-.term-dots span {
-  display: inline-block;
-  width: 11px; height: 11px;
-  border-radius: 50%;
-  margin-right: 4px;
-}
-.dot-r { background: #ff5f57; }
-.dot-y { background: #febc2e; }
-.dot-g { background: #28c840; }
-
-.term-title {
-  font-size: 12px;
-  font-family: var(--mono);
-  color: var(--muted);
-  flex: 1;
-  text-align: center;
-}
-
+.term-dots span { display: inline-block; width: 11px; height: 11px; border-radius: 50%; margin-right: 4px; }
+.dot-r { background: #ff5f57; } .dot-y { background: #febc2e; } .dot-g { background: #28c840; }
+.term-title { font-size: 12px; font-family: var(--mono); color: var(--muted); flex: 1; text-align: center; }
 .clear-btn {
-  font-size: 11px;
-  font-family: var(--mono);
-  padding: 3px 10px;
-  border-radius: 4px;
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--muted);
-  cursor: pointer;
+  font-size: 11px; font-family: var(--mono); padding: 3px 10px; border-radius: 4px;
+  border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer;
   transition: color 0.15s, border-color 0.15s;
 }
 .clear-btn:hover { color: var(--navy); border-color: var(--teal); }
 
-#terminal {
-  flex: 1;
-  overflow-y: auto;
-  padding: 18px 22px;
-  font-family: var(--mono);
-  font-size: 12.5px;
-  line-height: 1.75;
-  color: #3d5068;
+/* Diagram banner — shown in right panel when a card is selected but not running */
+#diagram-banner {
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border2);
   background: #f9fbff;
-  scrollbar-width: thin;
-  scrollbar-color: var(--border) transparent;
+  overflow: hidden;
+  transition: max-height 0.2s ease;
+  max-height: 220px;
+}
+#diagram-banner.hidden { display: none; }
+#diagram-banner img {
+  width: 100%;
+  max-height: 210px;
+  object-fit: contain;
+  display: block;
+  padding: 12px 20px;
+}
+
+#terminal {
+  flex: 1; overflow-y: auto; padding: 18px 22px;
+  font-family: var(--mono); font-size: 12.5px; line-height: 1.75;
+  color: #3d5068; background: #f9fbff;
+  scrollbar-width: thin; scrollbar-color: var(--border) transparent;
 }
 #terminal::-webkit-scrollbar { width: 4px; }
 #terminal::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
@@ -367,21 +205,15 @@ header {
 
 /* ── Stats bar ── */
 .stats-bar {
-  display: flex;
-  gap: 20px;
-  padding: 9px 22px;
-  border-top: 1px solid var(--border2);
-  background: #f5f8fd;
-  font-size: 11px;
-  font-family: var(--mono);
-  flex-shrink: 0;
-  align-items: center;
+  display: flex; gap: 20px; padding: 9px 22px;
+  border-top: 1px solid var(--border2); background: #f5f8fd;
+  font-size: 11px; font-family: var(--mono); flex-shrink: 0; align-items: center;
 }
-.stat      { display: flex; align-items: center; gap: 6px; }
-.stat-dot  { width: 7px; height: 7px; border-radius: 50%; }
-.stat-val  { color: var(--navy); font-weight: 700; }
-.stat-lbl  { color: var(--muted); }
-.elapsed   { margin-left: auto; color: var(--muted); }
+.stat     { display: flex; align-items: center; gap: 6px; }
+.stat-dot { width: 7px; height: 7px; border-radius: 50%; }
+.stat-val { color: var(--navy); font-weight: 700; }
+.stat-lbl { color: var(--muted); }
+.elapsed  { margin-left: auto; color: var(--muted); }
 
 .sidebar::-webkit-scrollbar { width: 3px; }
 .sidebar::-webkit-scrollbar-thumb { background: var(--border); }
@@ -412,11 +244,13 @@ header {
         </div>
         <span class="card-badge badge-idle" id="badge-0">IDLE</span>
       </div>
-      <div class="card-desc">Generates test traffic across HTTP/S, DNS, SMTP/IMAP email, and streaming/media protocols. Validates application-layer firewall signatures.</div>
-      <div class="card-tags">
-        <span class="tag">HTTP</span><span class="tag">DNS</span><span class="tag">SMTP</span><span class="tag">IMAP</span><span class="tag">Streaming</span>
+      <div class="card-body">
+        <div class="card-desc">Generates test traffic across HTTP/S, DNS, SMTP/IMAP email, and streaming/media protocols. Validates application-layer firewall signatures.</div>
+        <div class="card-tags">
+          <span class="tag">HTTP</span><span class="tag">DNS</span><span class="tag">SMTP</span><span class="tag">IMAP</span><span class="tag">Streaming</span>
+        </div>
+        <button class="run-btn" onclick="runTest(0, event)">&#9654; Run Test</button>
       </div>
-      <button class="run-btn" onclick="runTest(0, event)">&#9654; Run Test</button>
     </div>
 
     <div class="test-card" id="card-1" onclick="selectCard(1)">
@@ -428,11 +262,13 @@ header {
         </div>
         <span class="card-badge badge-idle" id="badge-1">IDLE</span>
       </div>
-      <div class="card-desc">Concurrently checks 20 major national news websites (NYT, BBC, Reuters, etc.) to validate domain-based firewall rules and availability.</div>
-      <div class="card-tags">
-        <span class="tag">HTTP</span><span class="tag">Domain Rules</span><span class="tag">Concurrent</span>
+      <div class="card-body">
+        <div class="card-desc">Concurrently checks 20 major national news websites (NYT, BBC, Reuters, etc.) to validate domain-based firewall rules and availability.</div>
+        <div class="card-tags">
+          <span class="tag">HTTP</span><span class="tag">Domain Rules</span><span class="tag">Concurrent</span>
+        </div>
+        <button class="run-btn" onclick="runTest(1, event)">&#9654; Run Test</button>
       </div>
-      <button class="run-btn" onclick="runTest(1, event)">&#9654; Run Test</button>
     </div>
 
     <div class="test-card" id="card-2" onclick="selectCard(2)">
@@ -444,11 +280,13 @@ header {
         </div>
         <span class="card-badge badge-idle" id="badge-2">IDLE</span>
       </div>
-      <div class="card-desc">Tests reachability of ~95 government websites across top 100 GDP countries. Reports OK/BLOCK per country and shows your egress IP &amp; POP info.</div>
-      <div class="card-tags">
-        <span class="tag">GeoIP</span><span class="tag">95 Countries</span><span class="tag">Egress IP</span>
+      <div class="card-body">
+        <div class="card-desc">Tests reachability of ~95 government websites across top 100 GDP countries. Reports OK/BLOCK per country and shows your egress IP &amp; POP info.</div>
+        <div class="card-tags">
+          <span class="tag">GeoIP</span><span class="tag">95 Countries</span><span class="tag">Egress IP</span>
+        </div>
+        <button class="run-btn" onclick="runTest(2, event)">&#9654; Run Test</button>
       </div>
-      <button class="run-btn" onclick="runTest(2, event)">&#9654; Run Test</button>
     </div>
 
     <div class="test-card" id="card-3" onclick="selectCard(3)">
@@ -460,43 +298,32 @@ header {
         </div>
         <span class="card-badge badge-idle" id="badge-3">IDLE</span>
       </div>
-      <div class="card-desc">Simulates 17 known threat signatures: SUNBURST malware, CobaltStrike C2, Log4j exploits, cryptominers, stealers, and phishing domains.</div>
-      <div class="card-tags">
-        <span class="tag">SUNBURST</span><span class="tag">CobaltStrike</span><span class="tag">Log4j</span><span class="tag">C2</span>
+      <div class="card-body">
+        <div class="card-desc">Simulates 17 known threat signatures: SUNBURST malware, CobaltStrike C2, Log4j exploits, cryptominers, stealers, and phishing domains.</div>
+        <div class="card-tags">
+          <span class="tag">SUNBURST</span><span class="tag">CobaltStrike</span><span class="tag">Log4j</span><span class="tag">C2</span>
+        </div>
+        <button class="run-btn" onclick="runTest(3, event)">&#9654; Run Test</button>
       </div>
-      <button class="run-btn" onclick="runTest(3, event)">&#9654; Run Test</button>
-    </div>
-
-    <div class="run-all-wrap">
-      <button class="run-all-btn" id="runAllBtn" onclick="runAll()">&#9889; Run All Tests</button>
     </div>
   </aside>
 
+  <!-- Right panel -->
   <div class="terminal-pane">
     <div class="term-topbar">
       <div class="term-dots">
         <span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span>
       </div>
       <div class="term-title" id="termTitle">velocloud-etm — bash</div>
-      <button class="clear-btn" onclick="clearTerminal()">clear</button>
+      <button class="clear-btn" onclick="resetPanel()">clear</button>
     </div>
 
-    <div id="terminal">
-      <div class="term-line sys">  Velocloud ETM Demo</div>
-      <div class="term-line dim">  ────────────────────────────────────────────────────────────</div>
-      <div class="term-line dim"></div>
-      <div class="term-line dim">  Select a test module from the sidebar and click Run Test,</div>
-      <div class="term-line dim">  or click Run All Tests to execute the full suite.</div>
-      <div class="term-line dim"></div>
-      <div class="term-line info">  Modules available:</div>
-      <div class="term-line dim">    [1] app_filtering.py    — App-layer traffic generation</div>
-      <div class="term-line dim">    [2] domain_rule_test.py — Domain firewall rule validation</div>
-      <div class="term-line dim">    [3] geo_ip_testing.py   — GeoIP block/allow testing</div>
-      <div class="term-line dim">    [4] idps_testing.py     — IDPS/IDS signature simulation</div>
-      <div class="term-line dim"></div>
-      <div class="term-line dim">  Requires server.py running: python3 server.py</div>
-      <div class="term-line dim">  ────────────────────────────────────────────────────────────</div>
+    <!-- Diagram shown before run, hidden during/after run -->
+    <div id="diagram-banner">
+      <img id="diagram-img" src="App_Filtering.png" alt="Test diagram">
     </div>
+
+    <div id="terminal"></div>
 
     <div class="stats-bar">
       <div class="stat">
@@ -521,17 +348,51 @@ header {
 
 <script>
 const tests = [
-  { name: 'App Filtering',    file: 'app_filtering.py' },
-  { name: 'Domain Rule Test', file: 'domain_rule_test.py' },
-  { name: 'GeoIP Testing',    file: 'geo_ip_testing.py' },
-  { name: 'IDPS Testing',     file: 'idps_testing.py' },
+  { name: 'App Filtering',    file: 'app_filtering.py',   img: 'App_Filtering.png' },
+  { name: 'Domain Rule Test', file: 'domain_rule_test.py', img: 'Domain_Filtering.png' },
+  { name: 'GeoIP Testing',    file: 'geo_ip_testing.py',   img: 'Geo-IP_Filtering.png' },
+  { name: 'IDPS Testing',     file: 'idps_testing.py',     img: 'IDPS_Prevention.png' },
 ];
 
 let statOk = 0, statFail = 0, statWarn = 0;
 let running = false, startTime = null, timerInterval = null;
+let currentIdx = 0;
 
 function selectCard(idx) {
+  if (running) return;
+  currentIdx = idx;
   document.querySelectorAll('.test-card').forEach((c, i) => c.classList.toggle('active', i === idx));
+
+  // Update diagram in right panel
+  const banner = document.getElementById('diagram-banner');
+  const img    = document.getElementById('diagram-img');
+  banner.classList.remove('hidden');
+  img.src = tests[idx].img;
+  img.alt = tests[idx].name + ' diagram';
+
+  // Reset terminal to welcome state
+  resetPanel(idx);
+}
+
+function resetPanel(idx) {
+  idx = (idx !== undefined) ? idx : currentIdx;
+  statOk = statFail = statWarn = 0;
+  updateStats();
+  clearInterval(timerInterval);
+  document.getElementById('elapsed').textContent = '00:00';
+  document.getElementById('termTitle').textContent = 'velocloud-etm — bash';
+  document.getElementById('globalStatus').className = 'status-pill';
+  document.getElementById('globalStatus').textContent = 'READY';
+
+  const t = document.getElementById('terminal');
+  t.innerHTML = '';
+  appendLine('  ' + tests[idx].name, 'sys');
+  appendLine('  ────────────────────────────────────────────────────────────', 'dim');
+  appendLine('', '');
+  appendLine('  Script: ' + tests[idx].file, 'dim');
+  appendLine('  Click Run Test to execute.', 'dim');
+  appendLine('', '');
+  appendLine('  ────────────────────────────────────────────────────────────', 'dim');
 }
 
 function setBadge(idx, state) {
@@ -545,12 +406,6 @@ function setGlobalStatus(txt, cls) {
   const el = document.getElementById('globalStatus');
   el.textContent = txt;
   el.className = 'status-pill' + (cls ? ' ' + cls : '');
-}
-
-function clearTerminal() {
-  document.getElementById('terminal').innerHTML = '';
-  statOk = statFail = statWarn = 0;
-  updateStats();
 }
 
 function updateStats() {
@@ -598,9 +453,8 @@ function classifyLine(line) {
 function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
 
 function simulateTest(idx) {
-  const test = tests[idx];
   setBadge(idx, 'running');
-  document.getElementById('termTitle').textContent = 'velocloud-etm — python3 ' + test.file;
+  document.getElementById('termTitle').textContent = 'velocloud-etm — python3 ' + tests[idx].file;
 
   return new Promise(resolve => {
     const es = new EventSource('/run/' + idx);
@@ -623,67 +477,39 @@ async function runTest(idx, event) {
   if (event) event.stopPropagation();
   if (running) return;
   running = true;
-  setAllRunBtns(true);
-  document.getElementById('runAllBtn').disabled = true;
+
+  // Disable all run buttons
+  document.querySelectorAll('.run-btn').forEach(b => b.disabled = true);
   setGlobalStatus('RUNNING', 'running');
   startTimer();
 
-  appendLine('', '');
+  // Clear terminal and hide diagram — fresh session
+  statOk = statFail = statWarn = 0;
+  updateStats();
+  document.getElementById('terminal').innerHTML = '';
+  document.getElementById('diagram-banner').classList.add('hidden');
+
   appendLine('$ python3 ' + tests[idx].file, 'sys');
   appendLine('', '');
+
   await simulateTest(idx);
+
   appendLine('', '');
   appendLine('[exit 0] ' + tests[idx].name + ' complete.', 'done');
   appendLine('  ────────────────────────────────────────────────────────────', 'dim');
 
   running = false;
-  setAllRunBtns(false);
-  document.getElementById('runAllBtn').disabled = false;
-  setGlobalStatus('READY', '');
+  document.querySelectorAll('.run-btn').forEach(b => b.disabled = false);
+  setGlobalStatus('DONE', '');
   stopTimer();
   document.getElementById('termTitle').textContent = 'velocloud-etm — bash';
+
+  // Show diagram again after run completes
+  document.getElementById('diagram-banner').classList.remove('hidden');
 }
 
-async function runAll() {
-  if (running) return;
-  running = true;
-  setAllRunBtns(true);
-  document.getElementById('runAllBtn').disabled = true;
-  setGlobalStatus('RUNNING', 'running');
-  startTimer();
-  clearTerminal();
-
-  appendLine('  Velocloud ETM Demo — Running All 4 Modules', 'sys');
-  appendLine('  ────────────────────────────────────────────────────────────', 'dim');
-  appendLine('', '');
-
-  for (let i = 0; i < tests.length; i++) {
-    selectCard(i);
-    appendLine('[' + (i + 1) + '/4] ' + tests[i].name, 'header');
-    appendLine('$ python3 ' + tests[i].file, 'sys');
-    appendLine('', '');
-    await simulateTest(i);
-    appendLine('', '');
-    appendLine('\u2714 ' + tests[i].name + ' complete', 'done');
-    appendLine('  ────────────────────────────────────────────────────────────', 'dim');
-    appendLine('', '');
-    await delay(300);
-  }
-
-  appendLine('  All 4 modules complete. Check your firewall logs.', 'done');
-  appendLine('  ────────────────────────────────────────────────────────────', 'dim');
-
-  running = false;
-  setAllRunBtns(false);
-  document.getElementById('runAllBtn').disabled = false;
-  setGlobalStatus('READY', '');
-  stopTimer();
-  document.getElementById('termTitle').textContent = 'velocloud-etm — bash';
-}
-
-function setAllRunBtns(d) {
-  document.querySelectorAll('.run-btn').forEach(b => b.disabled = d);
-}
+// Init — show first card diagram and welcome text
+selectCard(0);
 </script>
 </body>
 </html>
