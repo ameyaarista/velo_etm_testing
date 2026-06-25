@@ -2,7 +2,7 @@ import concurrent.futures
 import pandas as pd
 import requests
 
-# A curated list of 13 major national news websites from developed countries
+# A curated list of 12 major national news websites from developed countries
 NEWS_SITES = {
     # United States
     "The New York Times": "https://www.nytimes.com",
@@ -12,7 +12,7 @@ NEWS_SITES = {
     # United Kingdom
     "BBC News": "https://www.bbc.co.uk",
     "The Guardian": "https://www.theguardian.com",
-    "Reuters": "https://www.reuters.com",
+    #"Reuters": "https://www.reuters.com",
     "The Times UK": "https://www.thetimes.com",
     # Canada
     "CBC News": "https://www.cbc.ca",
