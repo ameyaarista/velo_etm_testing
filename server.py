@@ -1,4 +1,3 @@
-cat > ~/velo_etm_testing/server.py << 'EOF'
 from flask import Flask, Response, send_from_directory
 from flask_cors import CORS
 import subprocess, os, re
@@ -39,4 +38,3 @@ def serve(filename='etmdemo.html'):
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
-EOF
