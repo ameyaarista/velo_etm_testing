@@ -30,7 +30,7 @@ import requests
 # ──────────────────────────────────────────────
 #  CONFIGURATION
 # ──────────────────────────────────────────────
-TIMEOUT     = 10          # seconds per request
+TIMEOUT     = 2          # seconds per request
 MAX_WORKERS = 10          # concurrent threads
 OUTPUT_CSV  = ""          # e.g. "results.csv"  — leave empty to skip
 
