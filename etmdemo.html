@@ -3,52 +3,57 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ETM Demo — VeloCloud Security Test Suite</title>
+<title>Velocloud ETM Demo</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/*
+  Palette extracted from VeloCloud Orchestrator login screen:
+  --vc-navy:      #1a2b4a   (dark navy — "cloud" wordmark, body text)
+  --vc-teal:      #0077b6   (VeloCloud "velo" teal-blue, primary action)
+  --vc-teal-dark: #005f8e   (hover state)
+  --vc-bg:        #dce6f5   (periwinkle-blue page background gradient)
+  --vc-bg2:       #f0f4fb   (lighter gradient end)
+  --vc-white:     #ffffff   (card / sidebar background)
+  --vc-border:    #d0daea   (subtle borders)
+  --vc-muted:     #6b7fa3   (secondary text)
+  --vc-green:     #1a8a4a   (pass/OK)
+  --vc-red:       #c0392b   (fail/block)
+  --vc-amber:     #d4820a   (warning)
+  Font: Open Sans (matches VeloCloud UI exactly)
+  Mono: JetBrains Mono (terminal)
+*/
 
 :root {
-  /* Arista / VeloCloud palette extracted from the login screen */
-  --bg:           #dce6f0;          /* light blue-grey page background */
-  --surface:      #ffffff;          /* white card / panel */
-  --surface2:     #f0f4f8;          /* secondary surface */
-  --border:       #c8d8e8;          /* subtle border */
-  --border2:      #b0c4d8;          /* stronger border */
-
-  /* Brand blues */
-  --arista-blue:  #1d6fa4;          /* Arista logo / primary CTA */
-  --velo-bold:    #1b5c8a;          /* darker hover */
-  --velo-light:   #2e8ec8;          /* accent highlights */
-  --header-bg:    #1d3557;          /* deep navy for header */
-
-  /* Semantic */
-  --green:        #16a34a;
-  --green-bg:     #dcfce7;
-  --yellow:       #b45309;
-  --yellow-bg:    #fef9c3;
-  --red:          #dc2626;
-  --red-bg:       #fee2e2;
-  --info:         #0369a1;
-  --info-bg:      #e0f2fe;
-
-  --text:         #1e293b;
-  --text-mid:     #475569;
-  --muted:        #94a3b8;
-
-  --font: 'Inter', sans-serif;
-  --font-mono: 'Courier New', Courier, monospace;
-
-  --radius: 10px;
-  --radius-sm: 6px;
+  --vc-navy:      #1a2b4a;
+  --vc-teal:      #0077b6;
+  --vc-teal-dark: #005f8e;
+  --vc-teal-lite: #e6f2f9;
+  --vc-bg:        #d8e4f2;
+  --vc-bg2:       #edf2fa;
+  --vc-white:     #ffffff;
+  --vc-border:    #c8d6e8;
+  --vc-border2:   #e2eaf4;
+  --vc-muted:     #6b7fa3;
+  --vc-text:      #1a2b4a;
+  --vc-green:     #1a8a4a;
+  --vc-green-bg:  #e8f5ee;
+  --vc-red:       #c0392b;
+  --vc-red-bg:    #fdf0ee;
+  --vc-amber:     #b45309;
+  --vc-amber-bg:  #fef3e2;
+  --vc-card-shadow: 0 4px 24px rgba(26,43,74,0.10), 0 1px 4px rgba(26,43,74,0.06);
+  --font: 'Open Sans', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font);
+  background: linear-gradient(145deg, var(--vc-bg) 0%, var(--vc-bg2) 60%, #f8fafd 100%);
   min-height: 100vh;
+  font-family: var(--font);
+  color: var(--vc-text);
   display: flex;
   flex-direction: column;
 }
@@ -57,64 +62,74 @@ body {
 header {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 0 28px;
-  height: 56px;
-  background: var(--header-bg);
+  gap: 0;
+  padding: 0 32px;
+  height: 58px;
+  background: var(--vc-navy);
+  box-shadow: 0 2px 8px rgba(26,43,74,0.18);
   flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
 }
 
-.logo-wordmark {
+.header-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+  margin-right: 18px;
+}
+
+/* VeloCloud wordmark — "velo" teal, "cloud" white */
+.brand-velo {
   font-size: 22px;
   font-weight: 700;
-  letter-spacing: -0.01em;
-  color: #ffffff;
-  flex-shrink: 0;
+  color: #2bb5f0;
+  letter-spacing: -0.5px;
+  font-family: var(--font);
 }
-
-.logo-wordmark em { color: #5bc0eb; font-style: normal; }
+.brand-cloud {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+  font-family: var(--font);
+}
+.brand-tm {
+  font-size: 9px;
+  color: #8ab4cc;
+  vertical-align: super;
+  margin-left: 1px;
+  font-weight: 400;
+}
 
 .header-divider {
   width: 1px;
-  height: 28px;
+  height: 22px;
   background: rgba(255,255,255,0.2);
-  flex-shrink: 0;
+  margin: 0 16px;
 }
 
-.header-product {
+.header-title {
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 400;
   color: rgba(255,255,255,0.75);
   letter-spacing: 0.02em;
-}
-
-.header-subtitle {
-  font-size: 11px;
-  color: rgba(255,255,255,0.45);
-  margin-top: 1px;
 }
 
 .status-pill {
   margin-left: auto;
   font-size: 11px;
-  font-weight: 600;
-  font-family: var(--font-mono);
+  font-family: var(--mono);
   padding: 4px 12px;
   border-radius: 20px;
-  border: 1px solid rgba(255,255,255,0.25);
-  color: rgba(255,255,255,0.6);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.06em;
+  font-weight: 500;
 }
-
 .status-pill.running {
-  border-color: #5bc0eb;
-  color: #5bc0eb;
-  animation: pulse 1s ease-in-out infinite;
+  border-color: #2bb5f0;
+  color: #2bb5f0;
+  background: rgba(43,181,240,0.08);
 }
-
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
 
 /* ── Main layout ── */
 .main {
@@ -122,53 +137,50 @@ header {
   grid-template-columns: 320px 1fr;
   flex: 1;
   overflow: hidden;
+  margin: 20px;
   gap: 16px;
-  padding: 16px;
 }
 
 /* ── Sidebar ── */
 .sidebar {
-  background: var(--surface);
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
+  background: var(--vc-white);
+  border-radius: 12px;
+  box-shadow: var(--vc-card-shadow);
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  padding: 18px 0 0;
+  border: 1px solid var(--vc-border2);
 }
 
-.sidebar-header {
-  padding: 16px 18px 14px;
-  border-bottom: 1px solid var(--border);
-}
-
-.sidebar-title {
-  font-size: 11px;
+.sidebar-label {
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--muted);
+  letter-spacing: 0.12em;
+  color: var(--vc-muted);
   text-transform: uppercase;
-}
-
-.test-cards {
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  flex: 1;
+  padding: 0 18px 14px;
 }
 
 .test-card {
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius-sm);
+  margin: 0 10px 6px;
+  border: 1px solid var(--vc-border2);
+  border-radius: 8px;
   cursor: pointer;
-  transition: border-color 0.15s, box-shadow 0.15s;
-  background: var(--surface2);
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
   overflow: hidden;
+  background: #fafcff;
 }
-
-.test-card:hover { border-color: var(--velo-light); box-shadow: 0 2px 8px rgba(29,111,164,0.12); }
-.test-card.active { border-color: var(--arista-blue); background: #fff; box-shadow: 0 2px 10px rgba(29,111,164,0.15); }
+.test-card:hover {
+  border-color: var(--vc-teal);
+  background: var(--vc-teal-lite);
+  box-shadow: 0 2px 8px rgba(0,119,182,0.08);
+}
+.test-card.active {
+  border-color: var(--vc-teal);
+  background: var(--vc-teal-lite);
+  box-shadow: 0 2px 12px rgba(0,119,182,0.12);
+}
 
 .card-header {
   display: flex;
@@ -178,141 +190,135 @@ header {
 }
 
 .card-icon {
-  width: 34px; height: 34px;
-  border-radius: var(--radius-sm);
+  width: 30px; height: 30px;
+  border-radius: 6px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 17px;
+  font-size: 15px;
   flex-shrink: 0;
+  background: var(--vc-teal-lite);
 }
 
 .card-meta { flex: 1; min-width: 0; }
-
 .card-name {
   font-size: 13px;
   font-weight: 600;
-  color: var(--text);
+  color: var(--vc-navy);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-
 .card-file {
   font-size: 10px;
-  font-family: var(--font-mono);
-  color: var(--muted);
+  font-family: var(--mono);
+  color: var(--vc-muted);
   margin-top: 2px;
 }
 
 .card-badge {
   font-size: 10px;
-  font-family: var(--font-mono);
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-weight: 700;
-  flex-shrink: 0;
-  letter-spacing: 0.05em;
-}
-
-.badge-idle    { background: #f1f5f9; color: var(--muted); }
-.badge-running { background: var(--info-bg); color: var(--info); }
-.badge-done    { background: var(--green-bg); color: var(--green); }
-.badge-error   { background: var(--red-bg); color: var(--red); }
-
-.card-body {
-  display: none;
-  padding: 0 14px 14px;
-  border-top: 1px solid var(--border);
-  margin-top: 0;
-}
-
-.test-card.active .card-body { display: block; }
-
-.card-desc {
-  font-size: 12px;
-  color: var(--text-mid);
-  line-height: 1.55;
-  padding-top: 10px;
-}
-
-.card-tags {
-  display: flex;
-  gap: 5px;
-  flex-wrap: wrap;
-  margin-top: 8px;
-}
-
-.tag {
-  font-size: 10px;
-  font-weight: 600;
+  font-family: var(--mono);
   padding: 2px 7px;
   border-radius: 4px;
-  background: var(--info-bg);
-  color: var(--info);
-  border: 1px solid #bae6fd;
+  font-weight: 600;
+  flex-shrink: 0;
+  letter-spacing: 0.04em;
+}
+.badge-idle    { background: #f0f3f8; color: var(--vc-muted); }
+.badge-running { background: rgba(0,119,182,0.1); color: var(--vc-teal); }
+.badge-done    { background: var(--vc-green-bg); color: var(--vc-green); }
+.badge-error   { background: var(--vc-red-bg); color: var(--vc-red); }
+
+.card-desc {
+  font-size: 11.5px;
+  color: var(--vc-muted);
+  padding: 10px 14px 12px;
+  line-height: 1.55;
+  border-top: 1px solid var(--vc-border2);
+  display: none;
+}
+.test-card.active .card-desc { display: block; }
+
+.card-tags {
+  display: none;
+  gap: 4px;
+  flex-wrap: wrap;
+  padding: 0 14px 10px;
+}
+.test-card.active .card-tags { display: flex; }
+.tag {
+  font-size: 10px;
+  font-family: var(--mono);
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: rgba(0,119,182,0.08);
+  color: var(--vc-teal);
+  border: 1px solid rgba(0,119,182,0.18);
+  font-weight: 500;
 }
 
 .run-btn {
-  margin-top: 10px;
-  width: 100%;
-  padding: 8px;
+  margin: 0 14px 12px;
+  width: calc(100% - 28px);
+  padding: 9px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   font-family: var(--font);
-  letter-spacing: 0.04em;
-  border-radius: var(--radius-sm);
+  border-radius: 6px;
   border: none;
-  background: var(--arista-blue);
-  color: #fff;
+  background: var(--vc-teal);
+  color: #ffffff;
   cursor: pointer;
   transition: background 0.15s;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
+  display: none;
 }
+.test-card.active .run-btn { display: block; }
+.run-btn:hover { background: var(--vc-teal-dark); }
+.run-btn:disabled { opacity: 0.45; cursor: not-allowed; background: var(--vc-teal); }
 
-.run-btn:hover { background: var(--velo-bold); }
-.run-btn:disabled { opacity: 0.45; cursor: not-allowed; background: var(--arista-blue); }
-
-/* Run All button */
 .run-all-wrap {
-  padding: 12px;
-  border-top: 1px solid var(--border);
+  padding: 14px 10px 14px;
+  margin-top: auto;
+  border-top: 1px solid var(--vc-border2);
 }
-
 .run-all-btn {
   width: 100%;
   padding: 10px;
   font-size: 12px;
   font-weight: 700;
   font-family: var(--font);
-  letter-spacing: 0.06em;
-  border-radius: var(--radius-sm);
-  border: 1.5px solid var(--arista-blue);
+  border-radius: 6px;
+  border: 2px solid var(--vc-teal);
   background: transparent;
-  color: var(--arista-blue);
+  color: var(--vc-teal);
   cursor: pointer;
   transition: background 0.15s, color 0.15s;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
-
-.run-all-btn:hover { background: var(--arista-blue); color: #fff; }
+.run-all-btn:hover { background: var(--vc-teal); color: white; }
 .run-all-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
 /* ── Terminal pane ── */
 .terminal-pane {
+  background: var(--vc-white);
+  border-radius: 12px;
+  box-shadow: var(--vc-card-shadow);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background: var(--surface);
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  border: 1px solid var(--vc-border2);
 }
 
 .term-topbar {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 16px;
-  border-bottom: 1px solid var(--border);
-  background: var(--surface2);
+  padding: 11px 18px;
+  border-bottom: 1px solid var(--vc-border2);
+  background: #f7f9fd;
   flex-shrink: 0;
-  border-radius: var(--radius) var(--radius) 0 0;
 }
 
 .term-dots span {
@@ -321,224 +327,202 @@ header {
   border-radius: 50%;
   margin-right: 4px;
 }
-
-.dot-r { background: #f87171; }
-.dot-y { background: #fbbf24; }
-.dot-g { background: #4ade80; }
+.dot-r { background: #ff5f57; }
+.dot-y { background: #febc2e; }
+.dot-g { background: #28c840; }
 
 .term-title {
   font-size: 12px;
-  font-family: var(--font-mono);
-  color: var(--muted);
+  font-family: var(--mono);
+  color: var(--vc-muted);
   flex: 1;
   text-align: center;
 }
 
 .clear-btn {
   font-size: 11px;
-  font-family: var(--font-mono);
+  font-family: var(--mono);
   padding: 3px 10px;
   border-radius: 4px;
-  border: 1px solid var(--border2);
+  border: 1px solid var(--vc-border);
   background: transparent;
-  color: var(--muted);
+  color: var(--vc-muted);
   cursor: pointer;
   transition: color 0.15s, border-color 0.15s;
 }
+.clear-btn:hover { color: var(--vc-navy); border-color: var(--vc-teal); }
 
-.clear-btn:hover { color: var(--text); border-color: var(--arista-blue); }
-
-/* Terminal output — light theme */
 #terminal {
   flex: 1;
   overflow-y: auto;
   padding: 18px 22px;
-  font-family: var(--font-mono);
+  font-family: var(--mono);
   font-size: 12.5px;
   line-height: 1.75;
-  color: var(--text-mid);
-  background: #f8fafc;
+  color: #3d5068;
+  background: #f9fbff;
   scrollbar-width: thin;
-  scrollbar-color: var(--border) transparent;
+  scrollbar-color: var(--vc-border) transparent;
 }
-
 #terminal::-webkit-scrollbar { width: 4px; }
-#terminal::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+#terminal::-webkit-scrollbar-thumb { background: var(--vc-border); border-radius: 2px; }
 
 .term-line { white-space: pre-wrap; word-break: break-all; }
-.term-line.sys    { color: var(--arista-blue); font-weight: 600; }
-.term-line.ok     { color: var(--green); }
-.term-line.fail   { color: var(--red); }
-.term-line.warn   { color: var(--yellow); }
-.term-line.info   { color: var(--info); }
-.term-line.header { color: var(--arista-blue); font-weight: 700; }
-.term-line.dim    { color: #94a3b8; }
-.term-line.done   { color: var(--green); font-weight: 700; }
+.term-line.sys    { color: var(--vc-teal); font-weight: 500; }
+.term-line.ok     { color: var(--vc-green); }
+.term-line.fail   { color: var(--vc-red); }
+.term-line.warn   { color: var(--vc-amber); }
+.term-line.info   { color: #0077b6; }
+.term-line.header { color: var(--vc-navy); font-weight: 700; }
+.term-line.dim    { color: #9aabbd; }
+.term-line.done   { color: var(--vc-green); font-weight: 600; }
 
 /* ── Stats bar ── */
 .stats-bar {
   display: flex;
   gap: 20px;
   padding: 10px 22px;
-  border-top: 1px solid var(--border);
-  background: var(--surface2);
+  border-top: 1px solid var(--vc-border2);
+  background: #f7f9fd;
   font-size: 11px;
-  font-family: var(--font-mono);
+  font-family: var(--mono);
   flex-shrink: 0;
-  border-radius: 0 0 var(--radius) var(--radius);
+  align-items: center;
 }
-
 .stat { display: flex; align-items: center; gap: 6px; }
 .stat-dot { width: 7px; height: 7px; border-radius: 50%; }
-.stat-val { color: var(--text); font-weight: 700; }
-.stat-lbl { color: var(--muted); }
-.elapsed { margin-left: auto; color: var(--muted); }
+.stat-val { color: var(--vc-navy); font-weight: 700; }
+.stat-lbl { color: var(--vc-muted); }
+.elapsed { margin-left: auto; color: var(--vc-muted); font-size: 11px; }
 
-/* Scrollbar for sidebar */
 .sidebar::-webkit-scrollbar { width: 3px; }
-.sidebar::-webkit-scrollbar-thumb { background: var(--border); }
+.sidebar::-webkit-scrollbar-thumb { background: var(--vc-border); }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo-wordmark"><em>ARISTA</em></div>
-  <div class="header-divider"></div>
-  <div>
-    <div class="header-product"><strong>velo</strong>cloud™ Orchestrator</div>
-    <div class="header-subtitle">ETM Security Test Suite</div>
+  <div class="header-brand">
+    <span class="brand-velo">velo</span><span class="brand-cloud">cloud</span><span class="brand-tm">TM</span>
   </div>
+  <div class="header-divider"></div>
+  <span class="header-title">ETM Demo</span>
   <div class="status-pill" id="globalStatus">READY</div>
 </header>
 
 <div class="main">
   <aside class="sidebar">
-    <div class="sidebar-header">
-      <div class="sidebar-title">Test Modules</div>
+    <div class="sidebar-label">Test Modules</div>
+
+    <div class="test-card active" id="card-0" onclick="selectCard(0)">
+      <div class="card-header">
+        <div class="card-icon">🌐</div>
+        <div class="card-meta">
+          <div class="card-name">App Filtering</div>
+          <div class="card-file">app_filtering.py</div>
+        </div>
+        <span class="card-badge badge-idle" id="badge-0">IDLE</span>
+      </div>
+      <div class="card-desc">Generates test traffic across HTTP/S, DNS, SMTP/IMAP email, and streaming/media protocols. Validates application-layer firewall signatures.</div>
+      <div class="card-tags">
+        <span class="tag">HTTP</span><span class="tag">DNS</span><span class="tag">SMTP</span><span class="tag">IMAP</span><span class="tag">Streaming</span>
+      </div>
+      <button class="run-btn" onclick="runTest(0, event)">&#9654; Run Test</button>
     </div>
 
-    <div class="test-cards">
-
-      <div class="test-card active" id="card-0" onclick="selectCard(0)">
-        <div class="card-header">
-          <div class="card-icon" style="background:#e0f2fe">🌐</div>
-          <div class="card-meta">
-            <div class="card-name">App Filtering</div>
-            <div class="card-file">app_filtering.py</div>
-          </div>
-          <span class="card-badge badge-idle" id="badge-0">IDLE</span>
+    <div class="test-card" id="card-1" onclick="selectCard(1)">
+      <div class="card-header">
+        <div class="card-icon">📰</div>
+        <div class="card-meta">
+          <div class="card-name">Domain Rule Test</div>
+          <div class="card-file">domain_rule_test.py</div>
         </div>
-        <div class="card-body">
-          <div class="card-desc">Generates test traffic across HTTP/S, DNS, SMTP/IMAP email, and streaming/media protocols. Validates application-layer firewall signatures.</div>
-          <div class="card-tags">
-            <span class="tag">HTTP</span><span class="tag">DNS</span><span class="tag">SMTP</span><span class="tag">IMAP</span><span class="tag">Streaming</span>
-          </div>
-          <button class="run-btn" onclick="runTest(0, event)">▶ Run Test</button>
-        </div>
+        <span class="card-badge badge-idle" id="badge-1">IDLE</span>
       </div>
-
-      <div class="test-card" id="card-1" onclick="selectCard(1)">
-        <div class="card-header">
-          <div class="card-icon" style="background:#ede9fe">📰</div>
-          <div class="card-meta">
-            <div class="card-name">Domain Rule Test</div>
-            <div class="card-file">domain_rule_test.py</div>
-          </div>
-          <span class="card-badge badge-idle" id="badge-1">IDLE</span>
-        </div>
-        <div class="card-body">
-          <div class="card-desc">Concurrently checks 20 major national news websites (NYT, BBC, Reuters, etc.) to validate domain-based firewall rules and availability.</div>
-          <div class="card-tags">
-            <span class="tag">HTTP</span><span class="tag">Domain Rules</span><span class="tag">Concurrent</span>
-          </div>
-          <button class="run-btn" onclick="runTest(1, event)">▶ Run Test</button>
-        </div>
+      <div class="card-desc">Concurrently checks 20 major national news websites (NYT, BBC, Reuters, etc.) to validate domain-based firewall rules and availability.</div>
+      <div class="card-tags">
+        <span class="tag">HTTP</span><span class="tag">Domain Rules</span><span class="tag">Concurrent</span>
       </div>
+      <button class="run-btn" onclick="runTest(1, event)">&#9654; Run Test</button>
+    </div>
 
-      <div class="test-card" id="card-2" onclick="selectCard(2)">
-        <div class="card-header">
-          <div class="card-icon" style="background:#dcfce7">🗺️</div>
-          <div class="card-meta">
-            <div class="card-name">GeoIP Testing</div>
-            <div class="card-file">geo_ip_testing.py</div>
-          </div>
-          <span class="card-badge badge-idle" id="badge-2">IDLE</span>
+    <div class="test-card" id="card-2" onclick="selectCard(2)">
+      <div class="card-header">
+        <div class="card-icon">🗺️</div>
+        <div class="card-meta">
+          <div class="card-name">GeoIP Testing</div>
+          <div class="card-file">geo_ip_testing.py</div>
         </div>
-        <div class="card-body">
-          <div class="card-desc">Tests reachability of ~95 government websites across top 100 GDP countries. Reports OK/BLOCK per country and shows your egress IP & POP info.</div>
-          <div class="card-tags">
-            <span class="tag">GeoIP</span><span class="tag">95 Countries</span><span class="tag">Egress IP</span>
-          </div>
-          <button class="run-btn" onclick="runTest(2, event)">▶ Run Test</button>
-        </div>
+        <span class="card-badge badge-idle" id="badge-2">IDLE</span>
       </div>
-
-      <div class="test-card" id="card-3" onclick="selectCard(3)">
-        <div class="card-header">
-          <div class="card-icon" style="background:#fee2e2">🛡️</div>
-          <div class="card-meta">
-            <div class="card-name">IDPS Testing</div>
-            <div class="card-file">idps_testing.py</div>
-          </div>
-          <span class="card-badge badge-idle" id="badge-3">IDLE</span>
-        </div>
-        <div class="card-body">
-          <div class="card-desc">Simulates 17 known threat signatures: SUNBURST malware, CobaltStrike C2, Log4j exploits, cryptominers, stealers, and phishing domains.</div>
-          <div class="card-tags">
-            <span class="tag">SUNBURST</span><span class="tag">CobaltStrike</span><span class="tag">Log4j</span><span class="tag">C2</span>
-          </div>
-          <button class="run-btn" onclick="runTest(3, event)">▶ Run Test</button>
-        </div>
+      <div class="card-desc">Tests reachability of ~95 government websites across top 100 GDP countries. Reports OK/BLOCK per country and shows your egress IP &amp; POP info.</div>
+      <div class="card-tags">
+        <span class="tag">GeoIP</span><span class="tag">95 Countries</span><span class="tag">Egress IP</span>
       </div>
+      <button class="run-btn" onclick="runTest(2, event)">&#9654; Run Test</button>
+    </div>
 
-    </div><!-- /test-cards -->
+    <div class="test-card" id="card-3" onclick="selectCard(3)">
+      <div class="card-header">
+        <div class="card-icon">🛡️</div>
+        <div class="card-meta">
+          <div class="card-name">IDPS Testing</div>
+          <div class="card-file">idps_testing.py</div>
+        </div>
+        <span class="card-badge badge-idle" id="badge-3">IDLE</span>
+      </div>
+      <div class="card-desc">Simulates 17 known threat signatures: SUNBURST malware, CobaltStrike C2, Log4j exploits, cryptominers, stealers, and phishing domains.</div>
+      <div class="card-tags">
+        <span class="tag">SUNBURST</span><span class="tag">CobaltStrike</span><span class="tag">Log4j</span><span class="tag">C2</span>
+      </div>
+      <button class="run-btn" onclick="runTest(3, event)">&#9654; Run Test</button>
+    </div>
 
     <div class="run-all-wrap">
-      <button class="run-all-btn" id="runAllBtn" onclick="runAll()">⚡ Run All Tests</button>
+      <button class="run-all-btn" id="runAllBtn" onclick="runAll()">&#9889; Run All Tests</button>
     </div>
   </aside>
 
   <div class="terminal-pane">
     <div class="term-topbar">
       <div class="term-dots">
-        <span class="dot-r"></span>
-        <span class="dot-y"></span>
-        <span class="dot-g"></span>
+        <span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span>
       </div>
-      <div class="term-title" id="termTitle">etm-demo — bash</div>
+      <div class="term-title" id="termTitle">velocloud-etm — bash</div>
       <button class="clear-btn" onclick="clearTerminal()">clear</button>
     </div>
 
     <div id="terminal">
-      <div class="term-line sys">╔══════════════════════════════════════════════════════════════════╗</div>
-      <div class="term-line sys">║     ETM Demo — VeloCloud Security Test Suite                    ║</div>
-      <div class="term-line sys">╚══════════════════════════════════════════════════════════════════╝</div>
+      <div class="term-line sys">&#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;</div>
+      <div class="term-line sys">&#9474;              Velocloud ETM Demo                              &#9474;</div>
+      <div class="term-line sys">&#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;</div>
       <div class="term-line dim"></div>
       <div class="term-line dim">  Select a test module from the sidebar and click Run Test,</div>
       <div class="term-line dim">  or click Run All Tests to execute the full suite.</div>
       <div class="term-line dim"></div>
-      <div class="term-line dim">  Modules available:</div>
-      <div class="term-line info">    [1] app_filtering.py      — App-layer traffic generation</div>
-      <div class="term-line info">    [2] domain_rule_test.py   — Domain firewall rule validation</div>
-      <div class="term-line info">    [3] geo_ip_testing.py     — GeoIP block/allow testing</div>
-      <div class="term-line info">    [4] idps_testing.py       — IDPS/IDS signature simulation</div>
+      <div class="term-line info">  Modules available:</div>
+      <div class="term-line dim">    [1] app_filtering.py    &#8212; App-layer traffic generation</div>
+      <div class="term-line dim">    [2] domain_rule_test.py &#8212; Domain firewall rule validation</div>
+      <div class="term-line dim">    [3] geo_ip_testing.py   &#8212; GeoIP block/allow testing</div>
+      <div class="term-line dim">    [4] idps_testing.py     &#8212; IDPS/IDS signature simulation</div>
       <div class="term-line dim"></div>
-      <div class="term-line dim">──────────────────────────────────────────────────────────────────</div>
+      <div class="term-line dim">  Requires server.py to be running: python3 server.py</div>
+      <div class="term-line dim">  &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;</div>
     </div>
 
     <div class="stats-bar">
       <div class="stat">
-        <div class="stat-dot" style="background:var(--green)"></div>
+        <div class="stat-dot" style="background:var(--vc-green)"></div>
         <span class="stat-val" id="statOk">0</span>
         <span class="stat-lbl">passed</span>
       </div>
       <div class="stat">
-        <div class="stat-dot" style="background:var(--red)"></div>
+        <div class="stat-dot" style="background:var(--vc-red)"></div>
         <span class="stat-val" id="statFail">0</span>
         <span class="stat-lbl">blocked</span>
       </div>
       <div class="stat">
-        <div class="stat-dot" style="background:var(--yellow)"></div>
+        <div class="stat-dot" style="background:var(--vc-amber)"></div>
         <span class="stat-val" id="statWarn">0</span>
         <span class="stat-lbl">warnings</span>
       </div>
@@ -556,23 +540,20 @@ const tests = [
 ];
 
 let statOk = 0, statFail = 0, statWarn = 0;
-let running = false;
-let startTime = null;
-let timerInterval = null;
+let running = false, startTime = null, timerInterval = null;
 
 function selectCard(idx) {
   document.querySelectorAll('.test-card').forEach((c, i) => c.classList.toggle('active', i === idx));
 }
 
 function setBadge(idx, state) {
-  const badge = document.getElementById(`badge-${idx}`);
-  badge.className = 'card-badge';
-  const map = { idle: 'badge-idle', running: 'badge-running', done: 'badge-done', error: 'badge-error' };
-  badge.classList.add(map[state] || 'badge-idle');
-  badge.textContent = state.toUpperCase();
+  const b = document.getElementById('badge-' + idx);
+  b.className = 'card-badge';
+  b.classList.add({ idle:'badge-idle', running:'badge-running', done:'badge-done', error:'badge-error' }[state] || 'badge-idle');
+  b.textContent = state.toUpperCase();
 }
 
-function setGlobalStatus(txt, cls = '') {
+function setGlobalStatus(txt, cls) {
   const el = document.getElementById('globalStatus');
   el.textContent = txt;
   el.className = 'status-pill' + (cls ? ' ' + cls : '');
@@ -585,7 +566,7 @@ function clearTerminal() {
 }
 
 function updateStats() {
-  document.getElementById('statOk').textContent = statOk;
+  document.getElementById('statOk').textContent   = statOk;
   document.getElementById('statFail').textContent = statFail;
   document.getElementById('statWarn').textContent = statWarn;
 }
@@ -595,120 +576,62 @@ function startTimer() {
   clearInterval(timerInterval);
   timerInterval = setInterval(() => {
     const s = Math.floor((Date.now() - startTime) / 1000);
-    const m = Math.floor(s / 60).toString().padStart(2, '0');
-    const sec = (s % 60).toString().padStart(2, '0');
-    document.getElementById('elapsed').textContent = `${m}:${sec}`;
+    document.getElementById('elapsed').textContent =
+      String(Math.floor(s / 60)).padStart(2,'0') + ':' + String(s % 60).padStart(2,'0');
   }, 500);
 }
-
 function stopTimer() { clearInterval(timerInterval); }
 
-function appendLine(text, cls = '') {
+function appendLine(text, cls) {
   const el = document.createElement('div');
   el.className = 'term-line' + (cls ? ' ' + cls : '');
   el.textContent = text;
-  const term = document.getElementById('terminal');
-  term.appendChild(el);
-  term.scrollTop = term.scrollHeight;
+  const t = document.getElementById('terminal');
+  t.appendChild(el);
+  t.scrollTop = t.scrollHeight;
   if (cls === 'ok')   statOk++;
   if (cls === 'fail') statFail++;
   if (cls === 'warn') statWarn++;
   updateStats();
-  return el;
-}
-
-const prompts = [
-  `You are simulating terminal output for a firewall App Filter Traffic Generator script called app_filtering.py.
-Generate realistic, concise terminal output showing tests for: HTTP/HTTPS (7 URLs), DNS (7 queries), SMTP/IMAP email servers, and Streaming/Media (8 targets).
-Format each line as: [HH:MM:SS] ✔/✘ PROTO TARGET dst=IP sport=PORT dport=PORT DETAIL
-Use mix of ✔ (most) and ✘ (2-3 blocked) results. Include section headers like:
-────────────────────────────────────────────────────────────────────────────────
-HTTP / HTTPS
-────────────────────────────────────────────────────────────────────────────────
-Keep output to ~40 lines total. Use realistic IPs, ports, HTTP codes. End with a "Done." summary line.`,
-
-  `You are simulating terminal output for a domain_rule_test.py script that checks 20 major news websites.
-Generate realistic output showing: "Checking 20 major national news websites..."
-Then a pandas DataFrame table with columns: Website, URL, HTTP Status, Reason, Status
-Include these sites: The New York Times, BBC News, CNN, The Guardian, Reuters, WSJ, ABC News AU, Bloomberg, Financial Times, Der Spiegel, France 24, The Japan Times, CBC News, The Globe and Mail, The Sydney Morning Herald, Deutsche Welle, The Age, Global News Canada, The Times UK, The Washington Post
-Most should show 200 OK with ✅ Available, 2-3 might show ⚠️ Issue or ❌ Down.
-Format as a neat text table, 25 lines max.`,
-
-  `You are simulating terminal output for geo_ip_testing.py that tests government websites of ~95 countries.
-Generate realistic output with header:
-════════════════════════════════════════════════════════════════════════
-GeoIP Firewall Test — Government Websites
-════════════════════════════════════════════════════════════════════════
-Then show a numbered table with: #, Country, CC, Status (OK ✔ or BLOCK ✘), HTTP, Time(s), URL
-Include 20 countries spanning US, UK, Germany, Japan, Australia, India, Brazil, China, Russia, France, etc.
-Mix: ~15 OK, 3 BLOCK, 2 with redirect codes.
-Then show SUMMARY with counts and a BLOCKED list.
-Then show YOUR EGRESS IP section with fake but realistic IP info (ASN like Arista Networks, city, country).
-Keep to ~45 lines.`,
-
-  `You are simulating terminal output for idps_testing.py that tests IDPS/IDS detection of 17 known threats.
-Output should start with: "Executing commands..."
-Then for each of these threats, show the print statement and connection result:
-1. Spyware FH Variant → Connection info: ConnectionRefusedError (BLOCKED by IDPS)
-2. SUNBURST Malware Backdoor → Status Code: 200 (NOT blocked - for demo purposes)
-3. SUNBURST DNS resolve → Resolved avsvmcloud.com to: 13.57.184.217
-4. SUNBURST websitetheme.com DNS → Could not resolve domain (BLOCKED)
-5. Xanthe Crypto Miner → Status Code: 403
-6. CobaltStrike C2 → Connection info: ConnectionRefusedError (BLOCKED)
-7. Log4j attack → Connection info: ConnectionRefusedError (BLOCKED)
-8. SAP NetWeaver → Status Code: 404
-9. Template Injection → Status Code: 403
-10. Apache Struts OGNL → Connection info: ConnectionRefusedError (BLOCKED)
-11. Trickbot C2 → Connection info: Timeout (BLOCKED)
-12. ErbiumStealer → Connection info: ConnectionRefusedError (BLOCKED)
-13. Lilith Stealer (1) → Status Code: 404
-14. Lilith Stealer (2) → Connection info: ConnectionRefusedError (BLOCKED)
-15. Data Exfiltration DNS → Could not resolve domain (BLOCKED)
-16. Phishing Domain → Could not resolve domain (BLOCKED)
-17. Malicious library → Could not resolve domain (BLOCKED)
-End with: "All commands executed."
-Keep realistic, ~35 lines.`
-];
-
-async function simulateTest(idx) {
-  const test = tests[idx];
-  setBadge(idx, 'running');
-  document.getElementById('termTitle').textContent = `etm-demo — python3 ${test.file}`;
-  try {
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-6",
-        max_tokens: 1000,
-        messages: [{ role: "user", content: prompts[idx] }]
-      })
-    });
-    const data = await response.json();
-    const output = data.content.map(b => b.text || '').join('');
-    for (const line of output.split('\n')) {
-      await delay(18);
-      appendLine(line, classifyLine(line));
-    }
-    setBadge(idx, 'done');
-  } catch (err) {
-    appendLine(`Error: ${err.message}`, 'fail');
-    setBadge(idx, 'error');
-  }
 }
 
 function classifyLine(line) {
   const l = line.toLowerCase();
-  if (line.includes('✔') || l.includes('✅') || l.includes('available') || l.includes('ok ✔')) return 'ok';
-  if (line.includes('✘') || l.includes('block') || l.includes('❌') || l.includes('refused') || l.includes('could not resolve')) return 'fail';
-  if (l.includes('⚠️') || l.includes('warn') || l.includes('redirect') || l.includes('issue')) return 'warn';
-  if (l.includes('═') || l.includes('─') || l.includes('╔') || l.includes('╚') || l.includes('║')) return 'sys';
-  if (l.includes('summary') || l.includes('done') || l.includes('all commands executed')) return 'done';
-  if (l.includes('egress') || l.includes('ip address') || l.includes('organisation') || l.includes('pop')) return 'info';
+  if (line.includes('\u2714') || l.includes('\u2705') || l.includes('available') || l.includes(' ok ') || l.includes('[+]')) return 'ok';
+  if (line.includes('\u2718') || l.includes('block') || l.includes('\u274c') || l.includes('refused') ||
+      l.includes('could not resolve') || l.includes('timeout') || l.includes('error') || l.includes('[-]')) return 'fail';
+  if (l.includes('\u26a0') || l.includes('warn') || l.includes('issue') || l.includes('redirect')) return 'warn';
+  if (l.includes('\u2550') || l.includes('\u2500') || l.includes('\u2554') || l.includes('\u255a') ||
+      l.includes('\u2551') || l.includes('\u250c') || l.includes('\u2514') || l.includes('\u2502')) return 'sys';
+  if (l.includes('summary') || l.includes('all commands executed') || (l.includes('done') && l.length < 20)) return 'done';
+  if (l.includes('egress') || l.includes('ip address') || l.includes('organisation') || l.includes('pop estimate')) return 'info';
   return '';
 }
 
 function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+// Runs the real Python script via server.py EventSource stream
+function simulateTest(idx) {
+  const test = tests[idx];
+  setBadge(idx, 'running');
+  document.getElementById('termTitle').textContent = 'velocloud-etm — python3 ' + test.file;
+
+  return new Promise(resolve => {
+    const es = new EventSource('/run/' + idx);
+    es.onmessage = e => {
+      if (e.data === '__DONE__') {
+        es.close(); setBadge(idx, 'done'); resolve();
+      } else {
+        appendLine(e.data, classifyLine(e.data));
+      }
+    };
+    es.onerror = () => {
+      appendLine('ERROR: Cannot connect to server.py — make sure it is running:', 'fail');
+      appendLine('  cd ~/velo_etm_testing && python3 server.py', 'dim');
+      es.close(); setBadge(idx, 'error'); resolve();
+    };
+  });
+}
 
 async function runTest(idx, event) {
   if (event) event.stopPropagation();
@@ -718,19 +641,21 @@ async function runTest(idx, event) {
   document.getElementById('runAllBtn').disabled = true;
   setGlobalStatus('RUNNING', 'running');
   startTimer();
+
   appendLine('', 'dim');
-  appendLine(`$ python3 ${tests[idx].file}`, 'sys');
+  appendLine('$ python3 ' + tests[idx].file, 'sys');
   appendLine('', 'dim');
   await simulateTest(idx);
   appendLine('', 'dim');
-  appendLine(`[exit 0] ${tests[idx].name} complete.`, 'done');
-  appendLine('─'.repeat(65), 'dim');
+  appendLine('[exit 0] ' + tests[idx].name + ' complete.', 'done');
+  appendLine('\u2500'.repeat(62), 'dim');
+
   running = false;
   setAllRunBtns(false);
   document.getElementById('runAllBtn').disabled = false;
-  setGlobalStatus('READY');
+  setGlobalStatus('READY', '');
   stopTimer();
-  document.getElementById('termTitle').textContent = 'etm-demo — bash';
+  document.getElementById('termTitle').textContent = 'velocloud-etm — bash';
 }
 
 async function runAll() {
@@ -741,35 +666,39 @@ async function runAll() {
   setGlobalStatus('RUNNING', 'running');
   startTimer();
   clearTerminal();
-  appendLine('╔══════════════════════════════════════════════════════════════════╗', 'sys');
-  appendLine('║     ETM Full Suite — Running All 4 Test Modules                 ║', 'sys');
-  appendLine('╚══════════════════════════════════════════════════════════════════╝', 'sys');
+
+  appendLine('\u250c' + '\u2500'.repeat(62) + '\u2510', 'sys');
+  appendLine('\u2502   Velocloud ETM Demo \u2014 Running All 4 Test Modules          \u2502', 'sys');
+  appendLine('\u2514' + '\u2500'.repeat(62) + '\u2518', 'sys');
   appendLine('', 'dim');
+
   for (let i = 0; i < tests.length; i++) {
     selectCard(i);
-    appendLine(`[${i+1}/4] Starting: ${tests[i].name}`, 'header');
-    appendLine(`$ python3 ${tests[i].file}`, 'sys');
+    appendLine('[' + (i+1) + '/4] ' + tests[i].name, 'header');
+    appendLine('$ python3 ' + tests[i].file, 'sys');
     appendLine('', 'dim');
     await simulateTest(i);
     appendLine('', 'dim');
-    appendLine(`✔ ${tests[i].name} complete`, 'done');
-    appendLine('─'.repeat(65), 'dim');
+    appendLine('\u2714 ' + tests[i].name + ' complete', 'done');
+    appendLine('\u2500'.repeat(62), 'dim');
     appendLine('', 'dim');
     await delay(300);
   }
-  appendLine('╔══════════════════════════════════════════════════════════════════╗', 'sys');
-  appendLine('║  All 4 modules complete. Check your firewall logs.              ║', 'sys');
-  appendLine('╚══════════════════════════════════════════════════════════════════╝', 'sys');
+
+  appendLine('\u250c' + '\u2500'.repeat(62) + '\u2510', 'sys');
+  appendLine('\u2502   All 4 modules complete. Check your firewall logs.          \u2502', 'sys');
+  appendLine('\u2514' + '\u2500'.repeat(62) + '\u2518', 'sys');
+
   running = false;
   setAllRunBtns(false);
   document.getElementById('runAllBtn').disabled = false;
-  setGlobalStatus('READY');
+  setGlobalStatus('READY', '');
   stopTimer();
-  document.getElementById('termTitle').textContent = 'etm-demo — bash';
+  document.getElementById('termTitle').textContent = 'velocloud-etm — bash';
 }
 
-function setAllRunBtns(disabled) {
-  document.querySelectorAll('.run-btn').forEach(b => b.disabled = disabled);
+function setAllRunBtns(d) {
+  document.querySelectorAll('.run-btn').forEach(b => b.disabled = d);
 }
 </script>
 </body>
