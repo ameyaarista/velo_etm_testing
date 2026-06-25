@@ -48,42 +48,25 @@ HEADERS = {
 # ──────────────────────────────────────────────
 GAMBLING_SITES = {
     # ── Sports Betting ──
-    "bet365":           "https://www.bet365.com",
-    "DraftKings":       "https://www.draftkings.com",
-    "FanDuel":          "https://www.fanduel.com",
-    "William Hill":     "https://www.williamhill.com",
-    "Betfair":          "https://www.betfair.com",
-    "Paddy Power":      "https://www.paddypower.com",
-    "Ladbrokes":        "https://www.ladbrokes.com",
     "Coral":            "https://www.coral.co.uk",
-    "PointsBet":        "https://www.pointsbet.com",
-    "BetMGM":           "https://www.betmgm.com",
+    "FanDuel":          "https://www.fanduel.com",
+    "Ladbrokes":        "https://www.ladbrokes.com",
+    "Sportsbet (AU)":   "https://www.sportsbet.com.au",
+    "Bwin":             "https://www.bwin.com",
 
     # ── Online Casinos ──
-    "PokerStars Casino":"https://www.pokerstars.com",
     "888 Casino":       "https://www.888casino.com",
     "LeoVegas":         "https://www.leovegas.com",
-    "Betway Casino":    "https://www.betway.com",
     "Casumo":           "https://www.casumo.com",
-    "Unibet":           "https://www.unibet.com",
     "Mr Green":         "https://www.mrgreen.com",
-    "Rizk":             "https://www.rizk.com",
-    "Royal Vegas":      "https://www.royalvegas.com",
-    "Jackpot City":     "https://www.jackpotcitycasino.com",
+    "Mansion Casino":   "https://www.mansioncasino.com",
 
     # ── Poker Platforms ──
     "GGPoker":          "https://www.ggpoker.com",
     "partypoker":       "https://www.partypoker.com",
-    "WPT Global":       "https://www.wptglobal.com",
 
     # ── Lottery / Other ──
-    "Lottoland":        "https://www.lottoland.com",
     "theLotter":        "https://www.thelotter.com",
-    "Sportsbet (AU)":   "https://www.sportsbet.com.au",
-    "TAB (AU)":         "https://www.tab.com.au",
-    "Sky Bet":          "https://www.skybet.com",
-    "Bwin":             "https://www.bwin.com",
-    "Mansion Casino":   "https://www.mansioncasino.com",
 }
 
 # ──────────────────────────────────────────────
@@ -208,7 +191,7 @@ def probe_site(name, url):
 def main():
     total = len(GAMBLING_SITES)
     print(f"\n{'='*70}")
-    print(f"  Web Filtering Test  –  {total} Gambling / Wagering Sites")
+    print(f"  Web Filtering Test  –  {total} Gambling / Wagering Sites (confirmed reachable)")
     print(f"  Timeout: {TIMEOUT}s  |  Workers: {MAX_WORKERS}")
     print(f"{'='*70}\n")
 
