@@ -8,110 +8,95 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 /*
-  Palette extracted from VeloCloud Orchestrator login screen:
-  --vc-navy:      #1a2b4a   (dark navy — "cloud" wordmark, body text)
-  --vc-teal:      #0077b6   (VeloCloud "velo" teal-blue, primary action)
-  --vc-teal-dark: #005f8e   (hover state)
-  --vc-bg:        #dce6f5   (periwinkle-blue page background gradient)
-  --vc-bg2:       #f0f4fb   (lighter gradient end)
-  --vc-white:     #ffffff   (card / sidebar background)
-  --vc-border:    #d0daea   (subtle borders)
-  --vc-muted:     #6b7fa3   (secondary text)
-  --vc-green:     #1a8a4a   (pass/OK)
-  --vc-red:       #c0392b   (fail/block)
-  --vc-amber:     #d4820a   (warning)
-  Font: Open Sans (matches VeloCloud UI exactly)
-  Mono: JetBrains Mono (terminal)
+  Exact VeloCloud Orchestrator palette:
+  Page bg:      linear-gradient periwinkle #c8d8ef → #e8eef8 → white
+  Card bg:      #ffffff with subtle shadow
+  Navy text:    #1a2b4a  (ARISTA wordmark, headings)
+  Teal "velo":  #1a7abf  (VeloCloud brand teal-blue)
+  Teal dark:    #155fa0  (hover)
+  Border:       #d4dff0
+  Muted:        #6b7fa3
+  Font:         Open Sans
 */
 
 :root {
-  --vc-navy:      #1a2b4a;
-  --vc-teal:      #0077b6;
-  --vc-teal-dark: #005f8e;
-  --vc-teal-lite: #e6f2f9;
-  --vc-bg:        #d8e4f2;
-  --vc-bg2:       #edf2fa;
-  --vc-white:     #ffffff;
-  --vc-border:    #c8d6e8;
-  --vc-border2:   #e2eaf4;
-  --vc-muted:     #6b7fa3;
-  --vc-text:      #1a2b4a;
-  --vc-green:     #1a8a4a;
-  --vc-green-bg:  #e8f5ee;
-  --vc-red:       #c0392b;
-  --vc-red-bg:    #fdf0ee;
-  --vc-amber:     #b45309;
-  --vc-amber-bg:  #fef3e2;
-  --vc-card-shadow: 0 4px 24px rgba(26,43,74,0.10), 0 1px 4px rgba(26,43,74,0.06);
-  --font: 'Open Sans', sans-serif;
-  --mono: 'JetBrains Mono', monospace;
+  --bg-start:   #c5d5ea;
+  --bg-end:     #edf2fb;
+  --navy:       #1a2b4a;
+  --teal:       #1a7abf;
+  --teal-dark:  #155fa0;
+  --teal-lite:  #e8f2fb;
+  --white:      #ffffff;
+  --border:     #d0daea;
+  --border2:    #e4ecf6;
+  --muted:      #6b7fa3;
+  --text:       #1a2b4a;
+  --green:      #1a8a4a;
+  --green-bg:   #e8f5ee;
+  --red:        #c0392b;
+  --red-bg:     #fdf0ee;
+  --amber:      #b45309;
+  --amber-bg:   #fef3e2;
+  --shadow:     0 4px 32px rgba(26,43,74,0.10), 0 1px 4px rgba(26,43,74,0.06);
+  --font:       'Open Sans', sans-serif;
+  --mono:       'JetBrains Mono', monospace;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  background: linear-gradient(145deg, var(--vc-bg) 0%, var(--vc-bg2) 60%, #f8fafd 100%);
+  background: linear-gradient(150deg, var(--bg-start) 0%, var(--bg-end) 55%, #f8faff 100%);
   min-height: 100vh;
   font-family: var(--font);
-  color: var(--vc-text);
+  color: var(--text);
   display: flex;
   flex-direction: column;
 }
 
-/* ── Header ── */
+/* ── Header — matches Arista/VeloCloud top bar ── */
 header {
   display: flex;
   align-items: center;
-  gap: 0;
-  padding: 0 32px;
-  height: 58px;
-  background: var(--vc-navy);
-  box-shadow: 0 2px 8px rgba(26,43,74,0.18);
+  padding: 0 28px;
+  height: 52px;
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border2);
   flex-shrink: 0;
 }
 
-.header-brand {
-  display: flex;
-  align-items: baseline;
-  gap: 0;
-  margin-right: 18px;
+/* ARISTA wordmark style */
+.arista-wordmark {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 0.12em;
+  font-family: var(--font);
+  text-transform: uppercase;
 }
 
-/* VeloCloud wordmark — "velo" teal, "cloud" white */
-.brand-velo {
-  font-size: 22px;
-  font-weight: 700;
-  color: #2bb5f0;
-  letter-spacing: -0.5px;
-  font-family: var(--font);
-}
-.brand-cloud {
-  font-size: 22px;
-  font-weight: 700;
-  color: #ffffff;
-  letter-spacing: -0.5px;
-  font-family: var(--font);
-}
-.brand-tm {
-  font-size: 9px;
-  color: #8ab4cc;
-  vertical-align: super;
-  margin-left: 1px;
-  font-weight: 400;
-}
-
-.header-divider {
+.hdr-divider {
   width: 1px;
-  height: 22px;
-  background: rgba(255,255,255,0.2);
+  height: 20px;
+  background: var(--border);
   margin: 0 16px;
 }
 
-.header-title {
+/* velocloud™ wordmark */
+.vc-wordmark {
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+}
+.vc-velo  { font-size: 17px; font-weight: 700; color: var(--teal); letter-spacing: -0.2px; }
+.vc-cloud { font-size: 17px; font-weight: 700; color: var(--navy); letter-spacing: -0.2px; }
+.vc-tm    { font-size: 8px;  color: var(--muted); vertical-align: super; margin-left: 1px; }
+
+.hdr-subtitle {
   font-size: 13px;
   font-weight: 400;
-  color: rgba(255,255,255,0.75);
-  letter-spacing: 0.02em;
+  color: var(--muted);
+  margin-left: 10px;
 }
 
 .status-pill {
@@ -120,51 +105,51 @@ header {
   font-family: var(--mono);
   padding: 4px 12px;
   border-radius: 20px;
-  border: 1px solid rgba(255,255,255,0.2);
-  color: rgba(255,255,255,0.55);
+  border: 1px solid var(--border);
+  color: var(--muted);
   letter-spacing: 0.06em;
-  font-weight: 500;
+  background: var(--white);
 }
 .status-pill.running {
-  border-color: #2bb5f0;
-  color: #2bb5f0;
-  background: rgba(43,181,240,0.08);
+  border-color: var(--teal);
+  color: var(--teal);
+  background: var(--teal-lite);
 }
 
 /* ── Main layout ── */
 .main {
   display: grid;
-  grid-template-columns: 320px 1fr;
+  grid-template-columns: 310px 1fr;
   flex: 1;
   overflow: hidden;
-  margin: 20px;
+  padding: 18px;
   gap: 16px;
 }
 
 /* ── Sidebar ── */
 .sidebar {
-  background: var(--vc-white);
-  border-radius: 12px;
-  box-shadow: var(--vc-card-shadow);
+  background: var(--white);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border2);
   display: flex;
   flex-direction: column;
   overflow-y: auto;
   padding: 18px 0 0;
-  border: 1px solid var(--vc-border2);
 }
 
 .sidebar-label {
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.12em;
-  color: var(--vc-muted);
+  letter-spacing: 0.13em;
+  color: var(--muted);
   text-transform: uppercase;
-  padding: 0 18px 14px;
+  padding: 0 16px 12px;
 }
 
 .test-card {
   margin: 0 10px 6px;
-  border: 1px solid var(--vc-border2);
+  border: 1px solid var(--border2);
   border-radius: 8px;
   cursor: pointer;
   transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
@@ -172,14 +157,14 @@ header {
   background: #fafcff;
 }
 .test-card:hover {
-  border-color: var(--vc-teal);
-  background: var(--vc-teal-lite);
-  box-shadow: 0 2px 8px rgba(0,119,182,0.08);
+  border-color: var(--teal);
+  background: var(--teal-lite);
+  box-shadow: 0 2px 8px rgba(26,122,191,0.08);
 }
 .test-card.active {
-  border-color: var(--vc-teal);
-  background: var(--vc-teal-lite);
-  box-shadow: 0 2px 12px rgba(0,119,182,0.12);
+  border-color: var(--teal);
+  background: var(--teal-lite);
+  box-shadow: 0 2px 12px rgba(26,122,191,0.12);
 }
 
 .card-header {
@@ -195,14 +180,14 @@ header {
   display: flex; align-items: center; justify-content: center;
   font-size: 15px;
   flex-shrink: 0;
-  background: var(--vc-teal-lite);
+  background: var(--teal-lite);
 }
 
 .card-meta { flex: 1; min-width: 0; }
 .card-name {
   font-size: 13px;
   font-weight: 600;
-  color: var(--vc-navy);
+  color: var(--navy);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -210,7 +195,7 @@ header {
 .card-file {
   font-size: 10px;
   font-family: var(--mono);
-  color: var(--vc-muted);
+  color: var(--muted);
   margin-top: 2px;
 }
 
@@ -223,17 +208,17 @@ header {
   flex-shrink: 0;
   letter-spacing: 0.04em;
 }
-.badge-idle    { background: #f0f3f8; color: var(--vc-muted); }
-.badge-running { background: rgba(0,119,182,0.1); color: var(--vc-teal); }
-.badge-done    { background: var(--vc-green-bg); color: var(--vc-green); }
-.badge-error   { background: var(--vc-red-bg); color: var(--vc-red); }
+.badge-idle    { background: #f0f3f8;       color: var(--muted); }
+.badge-running { background: var(--teal-lite); color: var(--teal); }
+.badge-done    { background: var(--green-bg);  color: var(--green); }
+.badge-error   { background: var(--red-bg);    color: var(--red); }
 
 .card-desc {
   font-size: 11.5px;
-  color: var(--vc-muted);
+  color: var(--muted);
   padding: 10px 14px 12px;
   line-height: 1.55;
-  border-top: 1px solid var(--vc-border2);
+  border-top: 1px solid var(--border2);
   display: none;
 }
 .test-card.active .card-desc { display: block; }
@@ -248,14 +233,15 @@ header {
 .tag {
   font-size: 10px;
   font-family: var(--mono);
-  padding: 2px 6px;
+  padding: 2px 7px;
   border-radius: 3px;
-  background: rgba(0,119,182,0.08);
-  color: var(--vc-teal);
-  border: 1px solid rgba(0,119,182,0.18);
+  background: rgba(26,122,191,0.08);
+  color: var(--teal);
+  border: 1px solid rgba(26,122,191,0.2);
   font-weight: 500;
 }
 
+/* Run Test button — matches VeloCloud LOGIN button */
 .run-btn {
   margin: 0 14px 12px;
   width: calc(100% - 28px);
@@ -265,65 +251,67 @@ header {
   font-family: var(--font);
   border-radius: 6px;
   border: none;
-  background: var(--vc-teal);
-  color: #ffffff;
+  background: var(--teal);
+  color: #fff;
   cursor: pointer;
   transition: background 0.15s;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   display: none;
 }
 .test-card.active .run-btn { display: block; }
-.run-btn:hover { background: var(--vc-teal-dark); }
-.run-btn:disabled { opacity: 0.45; cursor: not-allowed; background: var(--vc-teal); }
+.run-btn:hover    { background: var(--teal-dark); }
+.run-btn:disabled { opacity: 0.45; cursor: not-allowed; }
 
 .run-all-wrap {
-  padding: 14px 10px 14px;
+  padding: 14px 10px;
   margin-top: auto;
-  border-top: 1px solid var(--vc-border2);
+  border-top: 1px solid var(--border2);
 }
+
+/* Run All — matches "SIGN IN WITH YOUR IDENTITY PROVIDER" outlined button */
 .run-all-btn {
   width: 100%;
   padding: 10px;
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 700;
   font-family: var(--font);
   border-radius: 6px;
-  border: 2px solid var(--vc-teal);
+  border: 1.5px solid var(--teal);
   background: transparent;
-  color: var(--vc-teal);
+  color: var(--teal);
   cursor: pointer;
   transition: background 0.15s, color 0.15s;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
 }
-.run-all-btn:hover { background: var(--vc-teal); color: white; }
+.run-all-btn:hover    { background: var(--teal); color: #fff; }
 .run-all-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
 /* ── Terminal pane ── */
 .terminal-pane {
-  background: var(--vc-white);
-  border-radius: 12px;
-  box-shadow: var(--vc-card-shadow);
+  background: var(--white);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border2);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border: 1px solid var(--vc-border2);
 }
 
 .term-topbar {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 11px 18px;
-  border-bottom: 1px solid var(--vc-border2);
-  background: #f7f9fd;
+  padding: 10px 18px;
+  border-bottom: 1px solid var(--border2);
+  background: #f5f8fd;
   flex-shrink: 0;
 }
 
 .term-dots span {
   display: inline-block;
-  width: 10px; height: 10px;
+  width: 11px; height: 11px;
   border-radius: 50%;
   margin-right: 4px;
 }
@@ -334,7 +322,7 @@ header {
 .term-title {
   font-size: 12px;
   font-family: var(--mono);
-  color: var(--vc-muted);
+  color: var(--muted);
   flex: 1;
   text-align: center;
 }
@@ -344,13 +332,13 @@ header {
   font-family: var(--mono);
   padding: 3px 10px;
   border-radius: 4px;
-  border: 1px solid var(--vc-border);
+  border: 1px solid var(--border);
   background: transparent;
-  color: var(--vc-muted);
+  color: var(--muted);
   cursor: pointer;
   transition: color 0.15s, border-color 0.15s;
 }
-.clear-btn:hover { color: var(--vc-navy); border-color: var(--vc-teal); }
+.clear-btn:hover { color: var(--navy); border-color: var(--teal); }
 
 #terminal {
   flex: 1;
@@ -362,51 +350,52 @@ header {
   color: #3d5068;
   background: #f9fbff;
   scrollbar-width: thin;
-  scrollbar-color: var(--vc-border) transparent;
+  scrollbar-color: var(--border) transparent;
 }
 #terminal::-webkit-scrollbar { width: 4px; }
-#terminal::-webkit-scrollbar-thumb { background: var(--vc-border); border-radius: 2px; }
+#terminal::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
-.term-line { white-space: pre-wrap; word-break: break-all; }
-.term-line.sys    { color: var(--vc-teal); font-weight: 500; }
-.term-line.ok     { color: var(--vc-green); }
-.term-line.fail   { color: var(--vc-red); }
-.term-line.warn   { color: var(--vc-amber); }
-.term-line.info   { color: #0077b6; }
-.term-line.header { color: var(--vc-navy); font-weight: 700; }
+.term-line        { white-space: pre-wrap; word-break: break-all; }
+.term-line.sys    { color: var(--teal); font-weight: 600; }
+.term-line.ok     { color: var(--green); }
+.term-line.fail   { color: var(--red); }
+.term-line.warn   { color: var(--amber); }
+.term-line.info   { color: var(--teal); }
+.term-line.header { color: var(--navy); font-weight: 700; }
 .term-line.dim    { color: #9aabbd; }
-.term-line.done   { color: var(--vc-green); font-weight: 600; }
+.term-line.done   { color: var(--green); font-weight: 600; }
 
 /* ── Stats bar ── */
 .stats-bar {
   display: flex;
   gap: 20px;
-  padding: 10px 22px;
-  border-top: 1px solid var(--vc-border2);
-  background: #f7f9fd;
+  padding: 9px 22px;
+  border-top: 1px solid var(--border2);
+  background: #f5f8fd;
   font-size: 11px;
   font-family: var(--mono);
   flex-shrink: 0;
   align-items: center;
 }
-.stat { display: flex; align-items: center; gap: 6px; }
-.stat-dot { width: 7px; height: 7px; border-radius: 50%; }
-.stat-val { color: var(--vc-navy); font-weight: 700; }
-.stat-lbl { color: var(--vc-muted); }
-.elapsed { margin-left: auto; color: var(--vc-muted); font-size: 11px; }
+.stat      { display: flex; align-items: center; gap: 6px; }
+.stat-dot  { width: 7px; height: 7px; border-radius: 50%; }
+.stat-val  { color: var(--navy); font-weight: 700; }
+.stat-lbl  { color: var(--muted); }
+.elapsed   { margin-left: auto; color: var(--muted); }
 
 .sidebar::-webkit-scrollbar { width: 3px; }
-.sidebar::-webkit-scrollbar-thumb { background: var(--vc-border); }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border); }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="header-brand">
-    <span class="brand-velo">velo</span><span class="brand-cloud">cloud</span><span class="brand-tm">TM</span>
+  <span class="arista-wordmark">Arista</span>
+  <div class="hdr-divider"></div>
+  <div class="vc-wordmark">
+    <span class="vc-velo">velo</span><span class="vc-cloud">cloud</span><span class="vc-tm">TM</span>
   </div>
-  <div class="header-divider"></div>
-  <span class="header-title">ETM Demo</span>
+  <span class="hdr-subtitle">ETM Demo</span>
   <div class="status-pill" id="globalStatus">READY</div>
 </header>
 
@@ -493,36 +482,35 @@ header {
     </div>
 
     <div id="terminal">
-      <div class="term-line sys">&#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;</div>
-      <div class="term-line sys">&#9474;              Velocloud ETM Demo                              &#9474;</div>
-      <div class="term-line sys">&#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;</div>
+      <div class="term-line sys">  Velocloud ETM Demo</div>
+      <div class="term-line dim">  ────────────────────────────────────────────────────────────</div>
       <div class="term-line dim"></div>
       <div class="term-line dim">  Select a test module from the sidebar and click Run Test,</div>
       <div class="term-line dim">  or click Run All Tests to execute the full suite.</div>
       <div class="term-line dim"></div>
       <div class="term-line info">  Modules available:</div>
-      <div class="term-line dim">    [1] app_filtering.py    &#8212; App-layer traffic generation</div>
-      <div class="term-line dim">    [2] domain_rule_test.py &#8212; Domain firewall rule validation</div>
-      <div class="term-line dim">    [3] geo_ip_testing.py   &#8212; GeoIP block/allow testing</div>
-      <div class="term-line dim">    [4] idps_testing.py     &#8212; IDPS/IDS signature simulation</div>
+      <div class="term-line dim">    [1] app_filtering.py    — App-layer traffic generation</div>
+      <div class="term-line dim">    [2] domain_rule_test.py — Domain firewall rule validation</div>
+      <div class="term-line dim">    [3] geo_ip_testing.py   — GeoIP block/allow testing</div>
+      <div class="term-line dim">    [4] idps_testing.py     — IDPS/IDS signature simulation</div>
       <div class="term-line dim"></div>
-      <div class="term-line dim">  Requires server.py to be running: python3 server.py</div>
-      <div class="term-line dim">  &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;</div>
+      <div class="term-line dim">  Requires server.py running: python3 server.py</div>
+      <div class="term-line dim">  ────────────────────────────────────────────────────────────</div>
     </div>
 
     <div class="stats-bar">
       <div class="stat">
-        <div class="stat-dot" style="background:var(--vc-green)"></div>
+        <div class="stat-dot" style="background:var(--green)"></div>
         <span class="stat-val" id="statOk">0</span>
         <span class="stat-lbl">passed</span>
       </div>
       <div class="stat">
-        <div class="stat-dot" style="background:var(--vc-red)"></div>
+        <div class="stat-dot" style="background:var(--red)"></div>
         <span class="stat-val" id="statFail">0</span>
         <span class="stat-lbl">blocked</span>
       </div>
       <div class="stat">
-        <div class="stat-dot" style="background:var(--vc-amber)"></div>
+        <div class="stat-dot" style="background:var(--amber)"></div>
         <span class="stat-val" id="statWarn">0</span>
         <span class="stat-lbl">warnings</span>
       </div>
@@ -577,7 +565,7 @@ function startTimer() {
   timerInterval = setInterval(() => {
     const s = Math.floor((Date.now() - startTime) / 1000);
     document.getElementById('elapsed').textContent =
-      String(Math.floor(s / 60)).padStart(2,'0') + ':' + String(s % 60).padStart(2,'0');
+      String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
   }, 500);
 }
 function stopTimer() { clearInterval(timerInterval); }
@@ -601,16 +589,14 @@ function classifyLine(line) {
   if (line.includes('\u2718') || l.includes('block') || l.includes('\u274c') || l.includes('refused') ||
       l.includes('could not resolve') || l.includes('timeout') || l.includes('error') || l.includes('[-]')) return 'fail';
   if (l.includes('\u26a0') || l.includes('warn') || l.includes('issue') || l.includes('redirect')) return 'warn';
-  if (l.includes('\u2550') || l.includes('\u2500') || l.includes('\u2554') || l.includes('\u255a') ||
-      l.includes('\u2551') || l.includes('\u250c') || l.includes('\u2514') || l.includes('\u2502')) return 'sys';
   if (l.includes('summary') || l.includes('all commands executed') || (l.includes('done') && l.length < 20)) return 'done';
   if (l.includes('egress') || l.includes('ip address') || l.includes('organisation') || l.includes('pop estimate')) return 'info';
+  if (line.trim().startsWith('$') || /^\[\d/.test(line.trim())) return 'sys';
   return '';
 }
 
 function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-// Runs the real Python script via server.py EventSource stream
 function simulateTest(idx) {
   const test = tests[idx];
   setBadge(idx, 'running');
@@ -626,8 +612,8 @@ function simulateTest(idx) {
       }
     };
     es.onerror = () => {
-      appendLine('ERROR: Cannot connect to server.py — make sure it is running:', 'fail');
-      appendLine('  cd ~/velo_etm_testing && python3 server.py', 'dim');
+      appendLine('ERROR: Cannot connect to server.py', 'fail');
+      appendLine('  Run: python3 server.py', 'dim');
       es.close(); setBadge(idx, 'error'); resolve();
     };
   });
@@ -642,13 +628,13 @@ async function runTest(idx, event) {
   setGlobalStatus('RUNNING', 'running');
   startTimer();
 
-  appendLine('', 'dim');
+  appendLine('', '');
   appendLine('$ python3 ' + tests[idx].file, 'sys');
-  appendLine('', 'dim');
+  appendLine('', '');
   await simulateTest(idx);
-  appendLine('', 'dim');
+  appendLine('', '');
   appendLine('[exit 0] ' + tests[idx].name + ' complete.', 'done');
-  appendLine('\u2500'.repeat(62), 'dim');
+  appendLine('  ────────────────────────────────────────────────────────────', 'dim');
 
   running = false;
   setAllRunBtns(false);
@@ -667,27 +653,25 @@ async function runAll() {
   startTimer();
   clearTerminal();
 
-  appendLine('\u250c' + '\u2500'.repeat(62) + '\u2510', 'sys');
-  appendLine('\u2502   Velocloud ETM Demo \u2014 Running All 4 Test Modules          \u2502', 'sys');
-  appendLine('\u2514' + '\u2500'.repeat(62) + '\u2518', 'sys');
-  appendLine('', 'dim');
+  appendLine('  Velocloud ETM Demo — Running All 4 Modules', 'sys');
+  appendLine('  ────────────────────────────────────────────────────────────', 'dim');
+  appendLine('', '');
 
   for (let i = 0; i < tests.length; i++) {
     selectCard(i);
-    appendLine('[' + (i+1) + '/4] ' + tests[i].name, 'header');
+    appendLine('[' + (i + 1) + '/4] ' + tests[i].name, 'header');
     appendLine('$ python3 ' + tests[i].file, 'sys');
-    appendLine('', 'dim');
+    appendLine('', '');
     await simulateTest(i);
-    appendLine('', 'dim');
+    appendLine('', '');
     appendLine('\u2714 ' + tests[i].name + ' complete', 'done');
-    appendLine('\u2500'.repeat(62), 'dim');
-    appendLine('', 'dim');
+    appendLine('  ────────────────────────────────────────────────────────────', 'dim');
+    appendLine('', '');
     await delay(300);
   }
 
-  appendLine('\u250c' + '\u2500'.repeat(62) + '\u2510', 'sys');
-  appendLine('\u2502   All 4 modules complete. Check your firewall logs.          \u2502', 'sys');
-  appendLine('\u2514' + '\u2500'.repeat(62) + '\u2518', 'sys');
+  appendLine('  All 4 modules complete. Check your firewall logs.', 'done');
+  appendLine('  ────────────────────────────────────────────────────────────', 'dim');
 
   running = false;
   setAllRunBtns(false);
